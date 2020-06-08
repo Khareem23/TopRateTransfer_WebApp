@@ -19,7 +19,12 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "@ng-bootstrap/ng-bootstrap": "^5.0.0",
+    "bootstrap": "^4.5.0",
+    "jquery-backstretch": "^2.1.18",
+    "material-kit": "^2.0.4",
     "rxjs": "~6.4.0",
+    "slick-carousel": "^1.8.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
