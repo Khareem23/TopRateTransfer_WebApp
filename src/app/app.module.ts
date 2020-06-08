@@ -10,9 +10,11 @@ import { AdminFooterComponent } from "./_layout/admin-footer/admin-footer.compon
 import { AdminSidebarComponent } from "./_layout/admin-sidebar/admin-sidebar.component";
 import { AdminLayoutComponent } from "./_layout/admin-layout/admin-layout.component";
 import { HomeLayoutComponent } from "./_layout/home-layout/home-layout.component";
-import { BodyComponent } from './home/body/body.component';
-import { DashboardComponent } from './features/admin/dashboard/dashboard.component';
-import { LoginComponent } from './auth/login/login.component';
+import { BodyComponent } from "./home/body/body.component";
+import { DashboardComponent } from "./features/admin/dashboard/dashboard.component";
+import { LoginComponent } from "./auth/login/login.component";
+
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,7 @@ import { LoginComponent } from './auth/login/login.component';
     DashboardComponent,
     LoginComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, NgbModule],
   providers: [],
   bootstrap: [AppComponent],
 })

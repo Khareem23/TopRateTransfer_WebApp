@@ -192,6 +192,15 @@
 
 /*-----------------*/
 
+/* argon overwrites */
+.bg-default {
+  background: linear-gradient(87deg, #770966 0, #4d0642 100%) !important;
+}
+.bg-gradient-brand {
+  background: linear-gradient(87deg, #770966 0, #4d0642 100%) !important;
+}
+/* --------------- */
+
 /*-Material Kit Overwrites-*/
 .card .card-header-primary {
   background: linear-gradient(60deg, #80006c, #660057);

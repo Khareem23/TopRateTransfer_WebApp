@@ -26,6 +26,7 @@
               "./src/assets/vendor/nucleo/css/nucleo.css",
               "./src/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css",
               "./src/assets/vendor/material/material-kit.css",
+              "./src/assets/vendor/dashboard/argon.scss",
               "src/styles.css",
               "./src/assets/vendor/argon/argon.css"
             ],
