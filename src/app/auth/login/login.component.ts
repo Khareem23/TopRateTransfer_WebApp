@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { loaders } from "src/app/shared/loaders";
 
 @Component({
   selector: "app-login",
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private router: Router) {
     this.loadAPI = new Promise((resolve) => {
-      this.loadStyle("../../../../assets/vendor/argon/argon.css");
+      loaders.loadStyle("../../../../assets/vendor/argon/argon.css");
       resolve(true);
     });
   }
@@ -33,21 +34,5 @@ export class LoginComponent implements OnInit {
     html.classList.remove("auth-layout");
     var body = document.getElementsByTagName("body")[0];
     body.classList.remove("bg-default");
-  }
-
-  public loadStyle(styleName: string) {
-    const head = document.getElementsByTagName("head")[0];
-
-    let themeLink = document.getElementById("client-theme") as HTMLLinkElement;
-    if (themeLink) {
-      themeLink.href = styleName;
-    } else {
-      const style = document.createElement("link");
-      style.id = "client-theme";
-      style.rel = "stylesheet";
-      style.href = `${styleName}`;
-
-      head.appendChild(style);
-    }
   }
 }

@@ -15,6 +15,10 @@ import { DashboardComponent } from "./features/admin/dashboard/dashboard.compone
 import { LoginComponent } from "./auth/login/login.component";
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+// import { ChartsModule } from "ng2-charts";
+import { UserComponent } from "./features/admin/user/user.component";
+import { HttpClientModule } from "@angular/common/http";
+import { AuthLayoutComponent } from './_layout/auth-layout/auth-layout.component';
 
 @NgModule({
   declarations: [
@@ -26,11 +30,13 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     AdminFooterComponent,
     AdminSidebarComponent,
     AdminLayoutComponent,
-    BodyComponent,
-    DashboardComponent,
-    LoginComponent,
+    AuthLayoutComponent,
+    // BodyComponent,
+    // DashboardComponent,
+    // LoginComponent,
+    // UserComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
   providers: [],
   bootstrap: [AppComponent],
 })

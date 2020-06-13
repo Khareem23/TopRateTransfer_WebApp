@@ -5,26 +5,30 @@ import { BodyComponent } from "./home/body/body.component";
 import { AdminLayoutComponent } from "./_layout/admin-layout/admin-layout.component";
 import { DashboardComponent } from "./features/admin/dashboard/dashboard.component";
 import { LoginComponent } from "./auth/login/login.component";
+import { UserComponent } from "./features/admin/user/user.component";
+import { AuthLayoutComponent } from "./_layout/auth-layout/auth-layout.component";
 
 const routes: Routes = [
   // Home routes goes here
   {
     path: "",
     component: HomeLayoutComponent,
-    children: [{ path: "", component: BodyComponent, pathMatch: "full" }],
+    loadChildren: () => import("./home/home.module").then((m) => m.HomeModule),
   },
 
   // Admin routes goes here
   {
-    path: "admin",
+    path: "",
     component: AdminLayoutComponent,
-    children: [{ path: "dashboard", component: DashboardComponent }],
+    loadChildren: () =>
+      import("./features/admin/admin.module").then((m) => m.AdminModule),
   },
 
-  //no layout routes for auth
+  // Auth routh goes here
   {
-    path: "login",
-    component: LoginComponent,
+    path: "",
+    component: AuthLayoutComponent,
+    loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
   },
 
   // otherwise redirect home
