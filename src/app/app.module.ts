@@ -10,15 +10,14 @@ import { AdminFooterComponent } from "./_layout/admin-footer/admin-footer.compon
 import { AdminSidebarComponent } from "./_layout/admin-sidebar/admin-sidebar.component";
 import { AdminLayoutComponent } from "./_layout/admin-layout/admin-layout.component";
 import { HomeLayoutComponent } from "./_layout/home-layout/home-layout.component";
-import { BodyComponent } from "./home/body/body.component";
-import { DashboardComponent } from "./features/admin/dashboard/dashboard.component";
-import { LoginComponent } from "./auth/login/login.component";
 
+import { EffectsModule } from "@ngrx/effects";
+import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "../environments/environment";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-// import { ChartsModule } from "ng2-charts";
-import { UserComponent } from "./features/admin/user/user.component";
 import { HttpClientModule } from "@angular/common/http";
-import { AuthLayoutComponent } from './_layout/auth-layout/auth-layout.component';
+import { AuthLayoutComponent } from "./_layout/auth-layout/auth-layout.component";
 
 @NgModule({
   declarations: [
@@ -31,12 +30,16 @@ import { AuthLayoutComponent } from './_layout/auth-layout/auth-layout.component
     AdminSidebarComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    // BodyComponent,
-    // DashboardComponent,
-    // LoginComponent,
-    // UserComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, NgbModule],
+  imports: [
+    BrowserModule,
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
+    environment.production ? [] : StoreDevtoolsModule.instrument(),
+    AppRoutingModule,
+    HttpClientModule,
+    NgbModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

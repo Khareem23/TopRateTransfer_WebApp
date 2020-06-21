@@ -9,10 +9,21 @@ import { HttpClientModule } from "@angular/common/http";
 import { Routes, RouterModule } from "@angular/router";
 import { UserComponent } from "./user/user.component";
 import { AgGridModule } from "ag-grid-angular";
+import { AuthguardService as AuthGuard } from "src/app/global/services/authguard.service";
 
 const adminRoutes: Routes = [
-  { path: "admin/dashboard", component: DashboardComponent, pathMatch: "full" },
-  { path: "admin/user", component: UserComponent, pathMatch: "full" },
+  {
+    path: "admin/dashboard",
+    component: DashboardComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "admin/user",
+    component: UserComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
@@ -25,5 +36,6 @@ const adminRoutes: Routes = [
     HttpClientModule,
     AgGridModule.withComponents(),
   ],
+  providers: [AuthGuard],
 })
 export class AdminModule {}

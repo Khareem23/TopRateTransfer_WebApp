@@ -2,6 +2,11 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Routes, RouterModule } from "@angular/router";
 import { LoginComponent } from "./login/login.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { StoreModule } from "@ngrx/store";
+import { EffectsModule } from "@ngrx/effects";
+import { authReducer } from "./state/reducers";
+import { AuthEffect } from "./state/effects";
 
 const authRoutes: Routes = [
   { path: "auth/login", component: LoginComponent, pathMatch: "full" },
@@ -9,6 +14,13 @@ const authRoutes: Routes = [
 
 @NgModule({
   declarations: [LoginComponent],
-  imports: [CommonModule, RouterModule.forChild(authRoutes)],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(authRoutes),
+    FormsModule,
+    ReactiveFormsModule,
+    StoreModule.forFeature("auth", authReducer),
+    EffectsModule.forFeature([AuthEffect]),
+  ],
 })
 export class AuthModule {}
