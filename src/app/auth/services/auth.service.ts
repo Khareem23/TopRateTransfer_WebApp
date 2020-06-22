@@ -32,7 +32,7 @@ export class AuthService {
 
   isUserMnagager(token: string): boolean {
     const claims = this.decodeToken(token);
-    console.log(claims);
+
     if (claims.role != "Manager") return false;
 
     return true;

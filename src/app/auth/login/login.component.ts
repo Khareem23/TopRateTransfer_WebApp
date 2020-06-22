@@ -66,7 +66,10 @@ export class LoginComponent implements OnInit {
 
     this.store.subscribe((state) => {
       this.authState = state.auth;
-      console.log(this.authState);
+      if (this.authState.isAuthenticated) {
+        console.log("should redirect");
+        this.router.navigate(["/admin/dashboard"]);
+      }
     });
   }
 
