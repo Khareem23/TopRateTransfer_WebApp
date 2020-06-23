@@ -10,6 +10,10 @@ import { Routes, RouterModule } from "@angular/router";
 import { UserComponent } from "./user/user.component";
 import { AgGridModule } from "ag-grid-angular";
 import { AuthguardService as AuthGuard } from "src/app/global/services/authguard.service";
+import { StoreModule } from "@ngrx/store";
+import { userReducer } from "./user/_state/reducer";
+import { EffectsModule } from "@ngrx/effects";
+import { UserEffect } from "./user/_state/effect";
 
 const adminRoutes: Routes = [
   {
@@ -31,6 +35,8 @@ const adminRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(adminRoutes),
+    StoreModule.forFeature("users", userReducer),
+    EffectsModule.forFeature([UserEffect]),
     NgbModule,
     ChartsModule,
     HttpClientModule,

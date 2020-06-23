@@ -32,6 +32,7 @@
     "chart.js": "^2.9.3",
     "jquery-backstretch": "^2.1.18",
     "material-kit": "^2.0.4",
+    "moment": "^2.27.0",
     "ng2-charts": "^2.3.2",
     "ngx-clipboard": "^12.0.0",
     "rxjs": "~6.4.0",

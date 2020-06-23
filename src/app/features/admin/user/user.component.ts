@@ -1,6 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 
 import { HttpClient } from "@angular/common/http";
+import { UserService } from "../_services/user.service";
+
+import * as userActions from "./_state/action";
+import * as fromUser from "./_state/reducer";
+import { Store } from "@ngrx/store";
+import { User } from "../_models/User";
+import * as moment from "moment";
 
 @Component({
   selector: "app-user",
@@ -8,59 +15,70 @@ import { HttpClient } from "@angular/common/http";
   styleUrls: ["./user.component.css"],
 })
 export class UserComponent implements OnInit {
-  private gridApi;
-  private gridColumnApi;
+  gridApi;
+  gridColumnApi;
 
-  private columnDefs;
-  private defaultColDef;
-  private defaultColGroupDef;
-  private columnTypes;
-  private rowData;
+  columnDefs;
+  defaultColDef;
+  defaultColGroupDef;
+  columnTypes;
+  rowData = null;
+  editType;
+  gridOptions;
 
-  constructor(private http: HttpClient) {
+  users: User[] = [];
+  isLoaded = false;
+  isLoading = false;
+
+  overlayLoadingTemplate;
+  overlayNoRowsTemplate;
+
+  constructor(
+    private http: HttpClient,
+    private store: Store<fromUser.AppState>
+  ) {
+    // AG-Grid Datatable definition
     this.columnDefs = [
       {
-        headerName: "Athlete",
-        field: "athlete",
+        headerName: "Id",
+        field: "id",
       },
       {
-        headerName: "Sport",
-        field: "sport",
+        headerName: "Fullname",
+        field: "fullname",
       },
       {
         headerName: "Age",
         field: "age",
         type: "numberColumn",
       },
+      ,
       {
-        headerName: "Year",
-        field: "year",
-        type: "numberColumn",
+        headerName: "Gender",
+        field: "gender",
       },
       {
-        headerName: "Date",
-        field: "date",
-        type: ["dateColumn", "nonEditableColumn"],
+        headerName: "Date Joined",
+        field: "createdDate",
+        type: "dateColumn",
         width: 220,
+        cellRenderer: (data) => {
+          return moment(data.createdDate).format("MM-DD-YYYY HH:mm");
+        },
       },
       {
-        headerName: "Medals",
-        groupId: "medalsGroup",
+        headerName: "Address",
+        groupId: "addressGroup",
         children: [
           {
-            headerName: "Gold",
-            field: "gold",
-            type: "medalColumn",
+            headerName: "City",
+            field: "city",
+            type: "addressColumn",
           },
           {
-            headerName: "Silver",
-            field: "silver",
-            type: "medalColumn",
-          },
-          {
-            headerName: "Bronze",
-            field: "bronze",
-            type: "medalColumn",
+            headerName: "Country",
+            field: "country",
+            type: "addressColumn",
           },
         ],
       },
@@ -78,10 +96,10 @@ export class UserComponent implements OnInit {
         width: 130,
         filter: "agNumberColumnFilter",
       },
-      medalColumn: {
-        width: 100,
+      addressColumn: {
+        width: 150,
         columnGroupShow: "open",
-        filter: false,
+        filter: true,
       },
       nonEditableColumn: { editable: false },
       dateColumn: {
@@ -104,19 +122,47 @@ export class UserComponent implements OnInit {
         },
       },
     };
+    this.editType = "fullRow";
+    this.overlayLoadingTemplate =
+      '<span class="ag-overlay-loading-center">Please wait while fetching users</span>';
+    this.overlayNoRowsTemplate =
+      '<span class="ag-overlay-loading-center">Please wait while fetching users</span>';
   }
-  ngOnInit() {}
+
+  ngOnInit() {
+    this.store.dispatch(new userActions.GetAll());
+
+    this.store
+      .select(fromUser.getUsersLoaded)
+      .subscribe((isLoaded) => (this.isLoaded = isLoaded));
+    this.store
+      .select(fromUser.getUsersLoaded)
+      .subscribe((isLoading) => (this.isLoading = isLoading));
+
+    // if (!this.isLoaded && this.isLoading) {
+    //   this.gridApi.showLoadingOverlay();
+    // } else if (this.isLoaded && !this.isLoading) {
+    //   if (this.rowData == null) {
+    //     this.gridApi.showNoRowsOverlay();
+    //   }
+    // }
+  }
 
   onGridReady(params) {
+    console.log(params);
     this.gridApi = params.api;
+    this.gridApi.suppressNoRowsOverlay = true;
     this.gridColumnApi = params.columnApi;
+    this.store.select(fromUser.getUsers).subscribe((state) => {
+      this.rowData = state;
+    });
 
-    this.http
-      .get(
-        "https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json"
-      )
-      .subscribe((data) => {
-        this.rowData = data;
-      });
+    // this.http
+    //   .get(
+    //     "https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json"
+    //   )
+    //   .subscribe((data) => {
+    //     this.rowData = data;
+    //   });
   }
 }
