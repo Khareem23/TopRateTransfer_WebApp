@@ -13,6 +13,7 @@ import { AuthguardService as AuthGuard } from "src/app/global/services/authguard
 import { StoreModule, ActionReducerMap } from "@ngrx/store";
 import { RateComponent } from "./rate/rate.component";
 import { IAppState } from "src/app/core/state/IAppState";
+import { ReactiveFormsModule } from "@angular/forms";
 
 const adminRoutes: Routes = [
   {
@@ -43,6 +44,7 @@ const adminRoutes: Routes = [
     NgbModule,
     ChartsModule,
     HttpClientModule,
+    ReactiveFormsModule,
     AgGridModule.withComponents(),
   ],
   providers: [AuthGuard],

@@ -1,5 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { loaders } from "src/app/shared/loaders";
+import { Rate } from "../_models/Rate";
+import { RateService } from "../_services/rate.service";
+import { FormGroup, FormGroupDirective } from "@angular/forms";
 
 @Component({
   selector: "app-dashboard",
@@ -7,6 +10,11 @@ import { loaders } from "src/app/shared/loaders";
   styleUrls: ["./dashboard.component.css"],
 })
 export class DashboardComponent implements OnInit {
+  rate: Rate;
+  isLoadingRate: boolean = false;
+  isSubmittingForm: boolean = false;
+  rateForm: FormGroup;
+
   public barChartOptions = {
     scaleShowVerticalLines: false,
     responsive: true,
@@ -35,12 +43,39 @@ export class DashboardComponent implements OnInit {
 
   loadAPI: Promise<any>;
 
-  constructor() {
+  constructor(private rateService: RateService) {
     this.loadAPI = new Promise((resolve) => {
       loaders.loadStyle("../../../../assets/vendor/argon/argon.css");
       resolve(true);
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isLoadingRate = true;
+    this.rateService.getRate().subscribe((rate) => {
+      this.rate = rate;
+      this.isLoadingRate = false;
+    });
+  }
+
+  onSubmit(formDirective: FormGroupDirective) {
+    console.log("was here");
+    if (this.rateService.rateForm.valid) {
+      this.isSubmittingForm = true;
+      const ratePayload: Rate = {
+        id: this.rate.id,
+        currencyDesc: this.rateService.rateForm.get("desc").value,
+        amount: this.rateService.rateForm.get("amount").value,
+      };
+
+      this.rateService.updateRate(ratePayload).subscribe((newRate) => {
+        console.log(newRate);
+        formDirective.resetForm();
+        this.rateService.rateForm.reset();
+        this.rateService.initializeFormGroup();
+        this.isSubmittingForm = false;
+        this.rate = ratePayload;
+      });
+    }
+  }
 }

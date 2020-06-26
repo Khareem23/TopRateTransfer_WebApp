@@ -18,6 +18,7 @@ import { environment } from "../environments/environment";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { HttpClientModule } from "@angular/common/http";
 import { AuthLayoutComponent } from "./_layout/auth-layout/auth-layout.component";
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AuthLayoutComponent } from "./_layout/auth-layout/auth-layout.component
     AdminSidebarComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
