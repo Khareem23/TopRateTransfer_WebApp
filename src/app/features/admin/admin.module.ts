@@ -10,10 +10,14 @@ import { Routes, RouterModule } from "@angular/router";
 import { UserComponent } from "./user/user.component";
 import { AgGridModule } from "ag-grid-angular";
 import { AuthguardService as AuthGuard } from "src/app/global/services/authguard.service";
-import { StoreModule } from "@ngrx/store";
-import { userReducer } from "./user/_state/reducer";
+import { StoreModule, ActionReducerMap } from "@ngrx/store";
+import { userReducer, AppState } from "./user/_state/reducer";
+import { rateReducer } from "./rate/_state/reducer";
 import { EffectsModule } from "@ngrx/effects";
 import { UserEffect } from "./user/_state/effect";
+import { RateComponent } from "./rate/rate.component";
+import { IAppState } from "src/app/core/state/IAppState";
+import { adminReducer } from ".";
 
 const adminRoutes: Routes = [
   {
@@ -28,14 +32,25 @@ const adminRoutes: Routes = [
     pathMatch: "full",
     canActivate: [AuthGuard],
   },
+  {
+    path: "admin/rate",
+    component: RateComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard],
+  },
 ];
 
+export const reducers: ActionReducerMap<IAppState> = {
+  users: userReducer,
+  rates: rateReducer,
+};
+
 @NgModule({
-  declarations: [DashboardComponent, UserComponent],
+  declarations: [DashboardComponent, UserComponent, RateComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(adminRoutes),
-    StoreModule.forFeature("users", userReducer),
+    StoreModule.forFeature("admin", adminReducer),
     EffectsModule.forFeature([UserEffect]),
     NgbModule,
     ChartsModule,

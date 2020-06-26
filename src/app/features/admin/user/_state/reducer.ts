@@ -57,6 +57,7 @@ export function userReducer(
     }
     case fromUser.UserActionTypes.GET_ALL: {
       console.log("reached here");
+      console.log(state);
       return {
         ...state,
         isLoading: true,

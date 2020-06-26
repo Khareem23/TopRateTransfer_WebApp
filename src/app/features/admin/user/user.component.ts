@@ -48,6 +48,15 @@ export class UserComponent implements OnInit {
         field: "fullname",
       },
       {
+        headerName: "Verification Status",
+        field: "isIdVerification",
+        cellEditor: "agSelectCellEditor",
+        cellEditorParams: {
+          cellHeight: 50,
+          values: ["true", "false"],
+        },
+      },
+      {
         headerName: "Age",
         field: "age",
         type: "numberColumn",
@@ -61,7 +70,7 @@ export class UserComponent implements OnInit {
         headerName: "Date Joined",
         field: "createdDate",
         type: "dateColumn",
-        width: 220,
+        width: 170,
         cellRenderer: (data) => {
           return moment(data.createdDate).format("MM-DD-YYYY HH:mm");
         },
@@ -122,7 +131,7 @@ export class UserComponent implements OnInit {
         },
       },
     };
-    this.editType = "fullRow";
+    // this.editType = "fullRow";
     this.overlayLoadingTemplate =
       '<span class="ag-overlay-loading-center">Please wait while fetching users</span>';
     this.overlayNoRowsTemplate =
@@ -132,12 +141,12 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new userActions.GetAll());
 
-    this.store
-      .select(fromUser.getUsersLoaded)
-      .subscribe((isLoaded) => (this.isLoaded = isLoaded));
-    this.store
-      .select(fromUser.getUsersLoaded)
-      .subscribe((isLoading) => (this.isLoading = isLoading));
+    // this.store
+    //   .select(fromUser.getUsersLoaded)
+    //   .subscribe((isLoaded) => (this.isLoaded = isLoaded));
+    // this.store
+    //   .select(fromUser.getUsersLoaded)
+    //   .subscribe((isLoading) => (this.isLoading = isLoading));
 
     // if (!this.isLoaded && this.isLoading) {
     //   this.gridApi.showLoadingOverlay();
@@ -148,13 +157,21 @@ export class UserComponent implements OnInit {
     // }
   }
 
+  onCellValueChanged(params) {
+    console.log(params);
+    console.log(params.colDef.field);
+    console.log(params.oldValue);
+    console.log(params.newValue);
+  }
+
   onGridReady(params) {
     console.log(params);
     this.gridApi = params.api;
     this.gridApi.suppressNoRowsOverlay = true;
     this.gridColumnApi = params.columnApi;
     this.store.select(fromUser.getUsers).subscribe((state) => {
-      this.rowData = state;
+      // this.rowData = state;
+      console.log(state);
     });
 
     // this.http
