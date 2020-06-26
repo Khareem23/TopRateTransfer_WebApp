@@ -11,13 +11,8 @@ import { UserComponent } from "./user/user.component";
 import { AgGridModule } from "ag-grid-angular";
 import { AuthguardService as AuthGuard } from "src/app/global/services/authguard.service";
 import { StoreModule, ActionReducerMap } from "@ngrx/store";
-import { userReducer, AppState } from "./user/_state/reducer";
-import { rateReducer } from "./rate/_state/reducer";
-import { EffectsModule } from "@ngrx/effects";
-import { UserEffect } from "./user/_state/effect";
 import { RateComponent } from "./rate/rate.component";
 import { IAppState } from "src/app/core/state/IAppState";
-import { adminReducer } from ".";
 
 const adminRoutes: Routes = [
   {
@@ -40,18 +35,11 @@ const adminRoutes: Routes = [
   },
 ];
 
-export const reducers: ActionReducerMap<IAppState> = {
-  users: userReducer,
-  rates: rateReducer,
-};
-
 @NgModule({
   declarations: [DashboardComponent, UserComponent, RateComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(adminRoutes),
-    StoreModule.forFeature("admin", adminReducer),
-    EffectsModule.forFeature([UserEffect]),
     NgbModule,
     ChartsModule,
     HttpClientModule,

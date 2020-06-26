@@ -3,9 +3,6 @@ import { Component, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { UserService } from "../_services/user.service";
 
-import * as userActions from "./_state/action";
-import * as fromUser from "./_state/reducer";
-import { Store } from "@ngrx/store";
 import { User } from "../_models/User";
 import * as moment from "moment";
 
@@ -33,10 +30,7 @@ export class UserComponent implements OnInit {
   overlayLoadingTemplate;
   overlayNoRowsTemplate;
 
-  constructor(
-    private http: HttpClient,
-    private store: Store<fromUser.AppState>
-  ) {
+  constructor(private userService: UserService) {
     // AG-Grid Datatable definition
     this.columnDefs = [
       {
@@ -138,24 +132,7 @@ export class UserComponent implements OnInit {
       '<span class="ag-overlay-loading-center">Please wait while fetching users</span>';
   }
 
-  ngOnInit() {
-    this.store.dispatch(new userActions.GetAll());
-
-    // this.store
-    //   .select(fromUser.getUsersLoaded)
-    //   .subscribe((isLoaded) => (this.isLoaded = isLoaded));
-    // this.store
-    //   .select(fromUser.getUsersLoaded)
-    //   .subscribe((isLoading) => (this.isLoading = isLoading));
-
-    // if (!this.isLoaded && this.isLoading) {
-    //   this.gridApi.showLoadingOverlay();
-    // } else if (this.isLoaded && !this.isLoading) {
-    //   if (this.rowData == null) {
-    //     this.gridApi.showNoRowsOverlay();
-    //   }
-    // }
-  }
+  ngOnInit() {}
 
   onCellValueChanged(params) {
     console.log(params);
@@ -165,21 +142,9 @@ export class UserComponent implements OnInit {
   }
 
   onGridReady(params) {
-    console.log(params);
     this.gridApi = params.api;
     this.gridApi.suppressNoRowsOverlay = true;
     this.gridColumnApi = params.columnApi;
-    this.store.select(fromUser.getUsers).subscribe((state) => {
-      // this.rowData = state;
-      console.log(state);
-    });
-
-    // this.http
-    //   .get(
-    //     "https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json"
-    //   )
-    //   .subscribe((data) => {
-    //     this.rowData = data;
-    //   });
+    this.userService.getUsers().subscribe((users) => (this.rowData = users));
   }
 }
