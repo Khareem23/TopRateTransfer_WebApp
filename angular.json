@@ -37,7 +37,8 @@
               "node_modules/material-kit/assets/js/material-kit.js",
               "node_modules/slick-carousel/slick/slick.min.js",
               "node_modules/jquery-backstretch/src/jquery.backstretch.js",
-              "node_modules/chart.js/dist/chart.js"
+              "node_modules/chart.js/dist/chart.js",
+              "./src/assets/js/home.js"
             ]
           },
           "configurations": {

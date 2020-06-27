@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
 
   loadAPI: Promise<any>;
 
-  constructor(private rateService: RateService) {
+  constructor(public rateService: RateService) {
     this.loadAPI = new Promise((resolve) => {
       loaders.loadStyle("../../../../assets/vendor/argon/argon.css");
       resolve(true);

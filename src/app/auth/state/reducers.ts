@@ -74,6 +74,7 @@ export function authReducer(
     }
     case authActions.AuthActionTypes.LOGOUT: {
       destroyToken();
+      console.log("got here");
       return {
         ...state,
         token: null,

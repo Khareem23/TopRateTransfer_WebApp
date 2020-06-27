@@ -13,11 +13,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Brand -->
-    <a
-      class="navbar-brand pt-0"
-      routerLinkActive="active"
-      [routerLink]="['/admin/dashboard']"
-    >
+    <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/']">
       <img
         src="./assets/img/tplogobrand.png"
         class="navbar-brand-img"
@@ -88,7 +84,7 @@
             <span>Support</span>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#!" class="dropdown-item">
+          <a class="dropdown-item link-item">
             <i class="ni ni-user-run"></i>
             <span>Logout</span>
           </a>
@@ -160,10 +156,7 @@
       <!-- Navigation -->
       <ul class="navbar-nav mb-md-3">
         <li class="nav-item">
-          <a
-            class="nav-link"
-            href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/alerts"
-          >
+          <a class="nav-link link-text" (click)="logout()">
             <i class="ni ni-ui-04"></i> Logout
           </a>
         </li>

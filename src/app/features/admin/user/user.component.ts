@@ -49,6 +49,7 @@ export class UserComponent implements OnInit {
           cellHeight: 50,
           values: ["true", "false"],
         },
+        editable: true,
       },
       {
         headerName: "Age",
@@ -88,7 +89,7 @@ export class UserComponent implements OnInit {
     ];
     this.defaultColDef = {
       width: 150,
-      editable: true,
+      editable: false,
       filter: "agTextColumnFilter",
       floatingFilter: true,
       resizable: true,

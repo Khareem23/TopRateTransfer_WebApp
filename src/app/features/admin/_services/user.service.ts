@@ -15,9 +15,7 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<User[]> {
-    return this.http
-      .get<User[]>(`${this.baseUrl}/getAllCustomers`)
-      .pipe(delay(500));
+    return this.http.get<User[]>(`${this.baseUrl}/getAllCustomers`);
   }
 
   getUser(id: number): Observable<User> {

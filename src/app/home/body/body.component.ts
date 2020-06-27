@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, isDevMode } from "@angular/core";
 import { loaders } from "../../shared/loaders";
 
 @Component({
@@ -10,14 +10,25 @@ export class BodyComponent implements OnInit {
   loadAPI: Promise<any>;
 
   constructor() {
-    this.loadAPI = new Promise((resolve) => {
-      loaders.loadScript("../../../assets/js/home.js");
-      resolve(true);
-    });
-    this.loadAPI = new Promise((resolve) => {
-      loaders.loadStyle("../../assets/vendor/material/material-kit.css");
-      resolve(true);
-    });
+    if (isDevMode()) {
+      this.loadAPI = new Promise((resolve) => {
+        loaders.loadScript("../../../assets/js/home.js");
+        resolve(true);
+      });
+      this.loadAPI = new Promise((resolve) => {
+        loaders.loadStyle("../../assets/vendor/material/material-kit.css");
+        resolve(true);
+      });
+    } else {
+      this.loadAPI = new Promise((resolve) => {
+        loaders.loadScript("./assets/js/home.js");
+        resolve(true);
+      });
+      this.loadAPI = new Promise((resolve) => {
+        loaders.loadStyle("./assets/vendor/material/material-kit.css");
+        resolve(true);
+      });
+    }
   }
 
   ngOnInit() {}

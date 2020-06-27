@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { AuthService } from "src/app/auth/services/auth.service";
 
 declare interface RouteInfo {
   path: string;
@@ -43,12 +44,17 @@ export class AdminSidebarComponent implements OnInit {
   public menuItems: any[];
   public isCollapsed = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
     });
+  }
+
+  logout() {
+    this.authService.destroyToken();
+    this.router.navigate(["/auth/login"]);
   }
 }

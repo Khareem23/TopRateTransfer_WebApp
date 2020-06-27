@@ -93,8 +93,12 @@
               </label>
             </div>
             <div class="text-center">
-              <button (click)="authenticateUser()" class="btn btn-primary my-4">
-                Sign in
+              <button
+                [disabled]="isAuthenticating || !signInForm.valid"
+                (click)="authenticateUser()"
+                class="btn btn-primary my-4"
+              >
+                {{ isAuthenticating ? "Authenticating" : "Sign In" }}
               </button>
             </div>
           </form>

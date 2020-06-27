@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, isDevMode } from "@angular/core";
 import { Router } from "@angular/router";
 import { loaders } from "src/app/shared/loaders";
 import {
@@ -11,6 +11,7 @@ import { ILogin } from "../models/ILogin";
 import * as authActions from "../state/actions";
 import * as fromAuth from "../state/reducers";
 import { Store } from "@ngrx/store";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-login",
@@ -26,15 +27,24 @@ export class LoginComponent implements OnInit {
   userPayload: ILogin;
   authState: any;
 
+  isAuthenticating = false;
+
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
     private store: Store<fromAuth.AppState>
   ) {
-    this.loadAPI = new Promise((resolve) => {
-      loaders.loadStyle("../../../../assets/vendor/argon/argon.css");
-      resolve(true);
-    });
+    if (isDevMode()) {
+      this.loadAPI = new Promise((resolve) => {
+        loaders.loadStyle("../../../../assets/vendor/argon/argon.css");
+        resolve(true);
+      });
+    } else {
+      this.loadAPI = new Promise((resolve) => {
+        loaders.loadStyle("./assets/vendor/argon/argon.css");
+        resolve(true);
+      });
+    }
   }
 
   ngOnInit() {
@@ -62,13 +72,17 @@ export class LoginComponent implements OnInit {
   }
 
   performLogin(userPayload: ILogin) {
+    this.isAuthenticating = true;
+    console.log(this.isAuthenticating);
     this.store.dispatch(new authActions.Login(userPayload));
 
     this.store.subscribe((state) => {
       this.authState = state.auth;
       if (this.authState.isAuthenticated) {
-        console.log("should redirect");
         this.router.navigate(["/admin/dashboard"]);
+      }
+      if (!this.authState.isAuthenticating) {
+        this.isAuthenticating = false;
       }
     });
   }

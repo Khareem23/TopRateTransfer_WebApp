@@ -6,6 +6,7 @@ import {
 } from "@angular/common";
 import { Router } from "@angular/router";
 import { ROUTES } from "../admin-sidebar/admin-sidebar.component";
+import { AuthService } from "src/app/auth/services/auth.service";
 
 @Component({
   selector: "app-admin-header",
@@ -19,7 +20,8 @@ export class AdminHeaderComponent implements OnInit {
   constructor(
     location: Location,
     private element: ElementRef,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {
     this.location = location;
   }
@@ -27,17 +29,9 @@ export class AdminHeaderComponent implements OnInit {
   ngOnInit() {
     this.listTitles = ROUTES.filter((listTitle) => listTitle);
   }
-  // getTitle() {
-  //   var titlee = this.location.prepareExternalUrl(this.location.path());
-  //   if (titlee.charAt(0) === "#") {
-  //     titlee = titlee.slice(1);
-  //   }
 
-  //   for (var item = 0; item < this.listTitles.length; item++) {
-  //     if (this.listTitles[item].path === titlee) {
-  //       return this.listTitles[item].title;
-  //     }
-  //   }
-  //   return "Dashboard";
-  // }
+  logout() {
+    this.authService.destroyToken();
+    this.router.navigate(["/auth/login"]);
+  }
 }
