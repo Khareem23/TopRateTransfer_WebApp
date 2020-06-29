@@ -5,6 +5,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { User } from "../_models/User";
+import { UserForUpdate } from "../_models/UserForUpdate";
 
 @Injectable({
   providedIn: "root",
@@ -22,7 +23,7 @@ export class UserService {
     return this.http.get<User>(`${this.baseUrl}/${id}`);
   }
 
-  updateUser(payload: User): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/${payload.id}`, payload);
+  updateUser(payload: UserForUpdate): Observable<User> {
+    return this.http.put<User>(`${this.baseUrl}/update/${payload.id}`, payload);
   }
 }

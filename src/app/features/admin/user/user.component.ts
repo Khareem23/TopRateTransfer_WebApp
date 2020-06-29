@@ -5,6 +5,9 @@ import { UserService } from "../_services/user.service";
 
 import { User } from "../_models/User";
 import * as moment from "moment";
+import { ToastrService } from "ngx-toastr";
+import { UserForUpdate } from "../_models/UserForUpdate";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-user",
@@ -22,6 +25,7 @@ export class UserComponent implements OnInit {
   rowData = null;
   editType;
   gridOptions;
+  rowSelection;
 
   users: User[] = [];
   isLoaded = false;
@@ -30,33 +34,56 @@ export class UserComponent implements OnInit {
   overlayLoadingTemplate;
   overlayNoRowsTemplate;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private toastr: ToastrService) {
     // AG-Grid Datatable definition
     this.columnDefs = [
       {
         headerName: "Id",
         field: "id",
+        checkboxSelection: true,
       },
       {
-        headerName: "Fullname",
-        field: "fullname",
+        headerName: "Names",
+        groupId: "namesGroup",
+        children: [
+          {
+            headerName: "First Name",
+            field: "firstName",
+            editable: true,
+          },
+          {
+            headerName: "Last Name",
+            field: "lastName",
+            editable: true,
+          },
+        ],
       },
       {
-        headerName: "Verification Status",
-        field: "isIdVerification",
-        cellEditor: "agSelectCellEditor",
-        cellEditorParams: {
-          cellHeight: 50,
-          values: ["true", "false"],
-        },
+        headerName: "Email",
+        field: "email",
         editable: true,
       },
       {
-        headerName: "Age",
-        field: "age",
-        type: "numberColumn",
+        headerName: "Verifications",
+        groupId: "verificationGroup",
+        children: [
+          {
+            headerName: "Activation",
+            field: "isActivated",
+            type: "verificationColumn",
+          },
+          {
+            headerName: "Facial Verification",
+            field: "isFacialVerification",
+            type: "verificationColumn",
+          },
+          {
+            headerName: "Verification Status",
+            field: "isIdVerification",
+            type: "verificationColumn",
+          },
+        ],
       },
-      ,
       {
         headerName: "Gender",
         field: "gender",
@@ -75,8 +102,18 @@ export class UserComponent implements OnInit {
         groupId: "addressGroup",
         children: [
           {
+            headerName: "Home Address",
+            field: "address",
+            type: "addressColumn",
+          },
+          {
             headerName: "City",
             field: "city",
+            type: "addressColumn",
+          },
+          {
+            headerName: "State",
+            field: "state",
             type: "addressColumn",
           },
           {
@@ -104,6 +141,16 @@ export class UserComponent implements OnInit {
         width: 150,
         columnGroupShow: "open",
         filter: true,
+        editable: true,
+      },
+      verificationColumn: {
+        cellEditor: "agSelectCellEditor",
+        cellEditorParams: {
+          cellHeight: 50,
+          values: ["true", "false"],
+        },
+        editable: true,
+        width: 150,
       },
       nonEditableColumn: { editable: false },
       dateColumn: {
@@ -127,6 +174,7 @@ export class UserComponent implements OnInit {
       },
     };
     // this.editType = "fullRow";
+    this.rowSelection = "single";
     this.overlayLoadingTemplate =
       '<span class="ag-overlay-loading-center">Please wait while fetching users</span>';
     this.overlayNoRowsTemplate =
@@ -136,10 +184,26 @@ export class UserComponent implements OnInit {
   ngOnInit() {}
 
   onCellValueChanged(params) {
-    console.log(params);
-    console.log(params.colDef.field);
-    console.log(params.oldValue);
-    console.log(params.newValue);
+    this.toastr.info("Updating changed user.. ");
+    let updatedUser: UserForUpdate = params.data;
+    let changedField = params.colDef.field;
+
+    if (
+      changedField == "isActivated" ||
+      changedField == "isFacialVerification" ||
+      changedField == "isIdVerification"
+    ) {
+      const newVal = `${params.newValue}`;
+      updatedUser[`${changedField}`] = newVal == "true";
+    }
+
+    this.updateUser(updatedUser).subscribe((_) => {
+      this.toastr.success("User update effected!");
+    });
+  }
+
+  updateUser(updatedUser: UserForUpdate): Observable<any> {
+    return this.userService.updateUser(updatedUser);
   }
 
   onGridReady(params) {
@@ -148,4 +212,10 @@ export class UserComponent implements OnInit {
     this.gridColumnApi = params.columnApi;
     this.userService.getUsers().subscribe((users) => (this.rowData = users));
   }
+
+  rowSelected() {
+    return this.gridApi && this.gridApi.getSelectedRows().length > 0;
+  }
+
+  displayViewForSelectedRow() {}
 }

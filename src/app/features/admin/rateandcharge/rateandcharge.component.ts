@@ -108,26 +108,26 @@ export class RateandchargeComponent implements OnInit {
   }
 
   onCellValueChanged(params) {
-    this.toastr.info("Updating changed row..");
+    this.toastr.info("Updating changed charge..");
     const changedData = params.newValue;
-    let newCharge: Charge = params.data;
+    let updatedCharge: Charge = params.data;
     let changedField = params.colDef.field;
 
     switch (changedField) {
       case "minAmount":
-        newCharge.minAmount = parseInt(changedData);
+        updatedCharge.minAmount = parseInt(changedData);
         break;
       case "maxAmount":
-        newCharge.maxAmount = parseInt(changedData);
+        updatedCharge.maxAmount = parseInt(changedData);
         break;
       case "charges":
-        newCharge.charges = parseFloat(changedData);
+        updatedCharge.charges = parseFloat(changedData);
         break;
       default:
         break;
     }
 
-    this.updateCharge(newCharge).subscribe((_) => {
+    this.updateCharge(updatedCharge).subscribe((_) => {
       this.toastr.success("Row Updated!");
     });
   }
