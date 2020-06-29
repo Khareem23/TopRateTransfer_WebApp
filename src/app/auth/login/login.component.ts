@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
   public isCollapsed = true;
   loadAPI: Promise<any>;
 
+  inDevMode = false;
+
   signInForm: FormGroup;
   userPayload: ILogin;
   authState: any;
@@ -34,11 +36,12 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private store: Store<fromAuth.AppState>
   ) {
+    this.loadAPI = new Promise((resolve) => {
+      loaders.loadStyle("../../../../assets/vendor/argon/argon.css");
+      resolve(true);
+    });
     if (isDevMode()) {
-      this.loadAPI = new Promise((resolve) => {
-        loaders.loadStyle("../../../../assets/vendor/argon/argon.css");
-        resolve(true);
-      });
+      this.inDevMode = true;
     } else {
       this.loadAPI = new Promise((resolve) => {
         loaders.loadStyle("./assets/vendor/argon/argon.css");

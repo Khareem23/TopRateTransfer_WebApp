@@ -1,0 +1,221 @@
+<div class="header bg-gradient-brand pb-8 pt-5 pt-md-8">
+  <div class="container-fluid">
+    <div class="header-body">
+      <div class="">
+        <h1 class="display-3 text-white">Rate and Charge Management</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="tbl-action">
+      <button
+        type="button"
+        class="btn btn-primary btn-create"
+        data-toggle="modal"
+        data-target="#staticBackdrop"
+      >
+        <i class="ni ni-fat-add"></i> New Charge
+      </button>
+      <button
+        (click)="deleteSelectedRows()"
+        [disabled]="!rowsSelected()"
+        type="button"
+        class="btn btn-primary btn-create"
+      >
+        <i class="ni ni-fat-remove"></i> Delete Selected Row
+      </button>
+    </div>
+    <div class="col-xl-12 mb-5 mb-xl-0">
+      <ag-grid-angular
+        #agGrid
+        style="width: 100%; height: 700px;"
+        id="myGrid"
+        class="ag-theme-alpine"
+        [gridOptions]="gridOptions"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [defaultColGroupDef]="defaultColGroupDef"
+        [editType]="editType"
+        [columnTypes]="columnTypes"
+        [rowSelection]="rowSelection"
+        suppressRowClickSelection
+        [rowData]="rowData"
+        (cellValueChanged)="onCellValueChanged($event)"
+        [overlayLoadingTemplate]="overlayLoadingTemplate"
+        [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+        [paginationAutoPageSize]="true"
+        [pagination]="true"
+        (gridReady)="onGridReady($event)"
+      ></ag-grid-angular>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-backdrop="static"
+  data-keyboard="false"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form
+        [formGroup]="chargeService.chargeForm"
+        #formDirective="ngForm"
+        (submit)="onSubmitToCreateCharge(formDirective)"
+      >
+        <div class="modal-header">
+          <h2 class="modal-title">New Charge</h2>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="minAmount"
+                  placeholder="Min Amount"
+                />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="maxAmount"
+                  placeholder="Max Amount"
+                />
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="charges"
+                  placeholder="Charges"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            [disabled]="
+              isSubmittingChargeForm || chargeService.chargeForm.invalid
+            "
+            class="btn btn-primary mr-4"
+          >
+            {{
+              isSubmittingChargeForm ? "Saving Charge..." : "Save New Charge"
+            }}
+          </button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <img
+            *ngIf="isSubmittingChargeForm"
+            style="width: 10%;"
+            src="./assets/img/transparent-spinner.gif"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-12 mb-5 mb-xl-0">
+      <div class="card shadow">
+        <div class="card-header">
+          <div class="row align-items-center">
+            <div class="col">
+              <h2 class="mb-0">Manage Rates</h2>
+              <h6 class="text-uppercase text-muted ls-1 mb-1">
+                View and update current system set rate
+              </h6>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-xl-6">
+              <div style="text-align: center; margin-top: 40px;">
+                <h4>
+                  CURRENT SET RATE
+                </h4>
+                <h2 *ngIf="!isLoadingRate; else elseBlock">
+                  {{ rate?.currencyDesc }} : {{ rate?.amount }}
+                </h2>
+                <ng-template #elseBlock>
+                  <img
+                    style="width: 10%;"
+                    src="./assets/img/transparent-spinner.gif"
+                  />
+                </ng-template>
+              </div>
+            </div>
+            <div class="col-xl-6">
+              <form
+                [formGroup]="rateService.rateForm"
+                #formDirective="ngForm"
+                (submit)="onSubmitToUpdateRate(formDirective)"
+              >
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        formControlName="desc"
+                        placeholder="{{ rate?.currencyDesc }}"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        formControlName="amount"
+                        placeholder="{{ rate?.amount }}"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <button
+                      [disabled]="
+                        isSubmittingRateForm || !rateService.rateForm.valid
+                      "
+                      class="btn btn-primary btn-block"
+                    >
+                      {{ isSubmittingRateForm ? "Saving rate..." : "Update" }}
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

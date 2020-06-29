@@ -10,6 +10,9 @@ import { AdminFooterComponent } from "./_layout/admin-footer/admin-footer.compon
 import { AdminSidebarComponent } from "./_layout/admin-sidebar/admin-sidebar.component";
 import { AdminLayoutComponent } from "./_layout/admin-layout/admin-layout.component";
 import { HomeLayoutComponent } from "./_layout/home-layout/home-layout.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+import { ToastrModule } from "ngx-toastr";
 
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
@@ -18,7 +21,7 @@ import { environment } from "../environments/environment";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { HttpClientModule } from "@angular/common/http";
 import { AuthLayoutComponent } from "./_layout/auth-layout/auth-layout.component";
-import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { SpinnerComponent } from "./shared/spinner/spinner.component";
 
 @NgModule({
   declarations: [
@@ -41,8 +44,9 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -33,7 +33,7 @@ export class RateService {
   }
 
   getRate(): Observable<Rate> {
-    return this.http.get<Rate>(`${this.baseUrl}/getRate`).pipe(delay(500));
+    return this.http.get<Rate>(`${this.baseUrl}/getRate`);
   }
 
   updateRate(payload: Rate): Observable<Rate> {

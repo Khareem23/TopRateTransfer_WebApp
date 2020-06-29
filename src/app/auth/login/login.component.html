@@ -40,11 +40,20 @@
             [routerLink]="['/']"
           >
             <img
+              *ngIf="inDevMode; else elseBlock"
               src="../../../assets/img/tplogobrand.png"
               class="navbar-brand-img"
               alt="logo"
               style="width: 60%;"
             />
+            <ng-template #elseBlock>
+              <img
+                src="./assets/img/tplogobrand.png"
+                class="navbar-brand-img"
+                alt="logo"
+                style="width: 60%;"
+              />
+            </ng-template>
           </a>
           <div class="text-muted text-center mt-2 mb-3">
             <h4>Admin Login</h4>

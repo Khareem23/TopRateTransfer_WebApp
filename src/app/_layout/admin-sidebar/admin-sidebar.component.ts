@@ -22,7 +22,7 @@ export const ROUTES: RouteInfo[] = [
     class: "",
   },
   {
-    path: "/admin/rate",
+    path: "/admin/rateandcharge",
     title: "Rates & Charges",
     icon: "ni-money-coins text-orange",
     class: "",

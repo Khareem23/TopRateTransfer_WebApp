@@ -195,6 +195,12 @@
 
 /*-----------------*/
 
+/* General Overrides */
+.modal-footer {
+  justify-content: flex-start !important;
+}
+/* ----------------- */
+
 /* argon overwrites */
 .bg-default {
   background: linear-gradient(87deg, #770966 0, #4d0642 100%) !important;
