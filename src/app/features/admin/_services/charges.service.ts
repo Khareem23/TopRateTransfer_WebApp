@@ -48,4 +48,8 @@ export class ChargeService {
   getAllCharges(): Observable<Charge[]> {
     return this.http.get<Charge[]>(`${this.baseUrl}/getAllCharges`);
   }
+
+  removeCharge(id: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/deleteCharges/${id}`);
+  }
 }

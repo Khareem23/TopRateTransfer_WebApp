@@ -61,63 +61,43 @@
             <div class="card-profile-image">
               <a href="javascript:void(0)"
                 ><img
+                  *ngIf="userModel?.profilePhotoUrl; else noavatar"
                   class="rounded-circle"
-                  src="assets/img/theme/team-4-800x800.jpg"
+                  src="{{ userModel?.profilePhotoUrl }}"
               /></a>
+              <ng-template #noavatar>
+                <img class="rounded-circle" src="./assets/img/no_avatar.jpg" />
+              </ng-template>
             </div>
-          </div>
-        </div>
-        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-          <div class="d-flex justify-content-between">
-            <a class="btn btn-sm btn-info mr-4" href="javascript:void(0)"
-              >Connect</a
-            ><a
-              class="btn btn-sm btn-default float-right"
-              href="javascript:void(0)"
-              >Message</a
-            >
           </div>
         </div>
         <div class="card-body pt-0 pt-md-4">
-          <div class="row">
-            <div class="col">
-              <div
-                class="card-profile-stats d-flex justify-content-center mt-md-5"
-              >
-                <div>
-                  <span class="heading">22</span
-                  ><span class="description">Friends</span>
-                </div>
-                <div>
-                  <span class="heading">10</span
-                  ><span class="description">Photos</span>
-                </div>
-                <div>
-                  <span class="heading">89</span
-                  ><span class="description">Comments</span>
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="text-center">
-            <h3>Jessica Jones<span class="font-weight-light">, 27</span></h3>
+            <h3>
+              {{ userModel?.firstName }} {{ userModel?.lastName }}
+              <span class="font-weight-light"
+                >,{{ userModel?.gender }} - {{ userModel?.age }}</span
+              >
+            </h3>
             <div class="h5 font-weight-300">
-              <i class="ni location_pin mr-2"></i>Bucharest, Romania
+              <i class="ni location_pin mr-2"></i>{{ userModel?.address }},
+              {{ userModel?.city }}, {{ userModel?.state }},
+              {{ userModel?.country }} {{ userModel?.postalCode }}
             </div>
             <div class="h5 mt-4">
-              <i class="ni business_briefcase-24 mr-2"></i>Solution Manager -
-              Creative Tim Officer
-            </div>
-            <div>
-              <i class="ni education_hat mr-2"></i>University of Computer
-              Science
+              <i class="ni business_briefcase-24 mr-2"></i
+              >{{ userModel?.email }} - {{ userModel?.phoneNumber }}
             </div>
             <hr class="my-4" />
-            <p>
-              Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick
-              Murphy — writes, performs and records all of his own music.
-            </p>
-            <a href="javascript:void(0)">Show more</a>
+            <pre>
+              Date Joined: {{userJoinedDate}}
+
+              ID Verification Status: <span class="badge badge-pill" [ngClass]="{'badge-success': userModel?.isIdVerification, 'badge-danger': !userModel?.isIdVerification}">{{userModel?.isIdVerification ? 'Verified' : 'Not Verified'}}</span>
+              
+              Activation Status: <span class="badge badge-pill" [ngClass]="{'badge-success': userModel?.isActivated, 'badge-danger': !userModel?.isActivated}">{{userModel?.isActivated ? 'Verified' : 'Not Verified'}}</span>
+              
+              Facial Verification Status: <span class="badge badge-pill" [ngClass]="{'badge-success': userModel?.isFacialVerification, 'badge-danger': !userModel?.isFacialVerification}">{{userModel?.isFacialVerification ? 'Verified' : 'Not Verified'}}</span>
+            </pre>
           </div>
         </div>
       </div>

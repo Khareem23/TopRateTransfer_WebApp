@@ -15,6 +15,9 @@ import { Observable } from "rxjs";
   styleUrls: ["./user.component.css"],
 })
 export class UserComponent implements OnInit {
+  userModel: User;
+  userJoinedDate;
+
   gridApi;
   gridColumnApi;
 
@@ -150,6 +153,7 @@ export class UserComponent implements OnInit {
           values: ["true", "false"],
         },
         editable: true,
+        filter: true,
         width: 150,
       },
       nonEditableColumn: { editable: false },
@@ -197,9 +201,14 @@ export class UserComponent implements OnInit {
       updatedUser[`${changedField}`] = newVal == "true";
     }
 
-    this.updateUser(updatedUser).subscribe((_) => {
-      this.toastr.success("User update effected!");
-    });
+    this.updateUser(updatedUser).subscribe(
+      (_) => {
+        this.toastr.success("User update effected!");
+      },
+      (error) => {
+        this.toastr.error("Something went wrong");
+      }
+    );
   }
 
   updateUser(updatedUser: UserForUpdate): Observable<any> {
@@ -210,12 +219,24 @@ export class UserComponent implements OnInit {
     this.gridApi = params.api;
     this.gridApi.suppressNoRowsOverlay = true;
     this.gridColumnApi = params.columnApi;
-    this.userService.getUsers().subscribe((users) => (this.rowData = users));
+    this.userService.getUsers().subscribe(
+      (users) => {
+        this.rowData = users;
+      },
+      (error) => {
+        this.toastr.error("Something went wrong");
+      }
+    );
   }
 
   rowSelected() {
     return this.gridApi && this.gridApi.getSelectedRows().length > 0;
   }
 
-  displayViewForSelectedRow() {}
+  displayViewForSelectedRow() {
+    this.userModel = this.gridApi.getSelectedRows()[0];
+    this.userJoinedDate = moment(this.userModel.createdDate).format(
+      "MMMM Do YYYY, h:mm:ss a"
+    );
+  }
 }

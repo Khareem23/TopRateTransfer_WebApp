@@ -83,7 +83,7 @@ export class RateandchargeComponent implements OnInit {
       floatingFilter: true,
       resizable: true,
     };
-    this.rowSelection = "multiple";
+    this.rowSelection = "single";
     this.overlayLoadingTemplate =
       '<span class="ag-overlay-loading-center">Please wait while fetching users</span>';
     this.overlayNoRowsTemplate =
@@ -101,9 +101,14 @@ export class RateandchargeComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.chargeService.getAllCharges().subscribe((charges) => {
-      this.rowData = charges;
-    });
+    this.chargeService.getAllCharges().subscribe(
+      (charges) => {
+        this.rowData = charges;
+      },
+      (error) => {
+        this.toastr.error("Something went wrong");
+      }
+    );
     params.api.sizeColumnsToFit();
   }
 
@@ -168,12 +173,17 @@ export class RateandchargeComponent implements OnInit {
         amount: this.rateService.rateForm.get("amount").value,
       };
 
-      this.rateService.updateRate(ratePayload).subscribe((newRate) => {
-        this.clearForm(formDirective, this.rateService);
-        this.isSubmittingRateForm = false;
-        this.rate = ratePayload;
-        this.toastr.success("Rate Updated!");
-      });
+      this.rateService.updateRate(ratePayload).subscribe(
+        (newRate) => {
+          this.clearForm(formDirective, this.rateService);
+          this.isSubmittingRateForm = false;
+          this.rate = ratePayload;
+          this.toastr.success("Rate Updated!");
+        },
+        (error) => {
+          this.toastr.error("Something went wrong");
+        }
+      );
     }
   }
 
@@ -184,9 +194,22 @@ export class RateandchargeComponent implements OnInit {
     service.initializeFormGroup();
   }
 
-  deleteSelectedRows() {
-    const selectedRows = this.gridApi.getSelectedRows();
-    console.log(selectedRows);
+  deleteSelectedRow() {
+    this.toastr.info("Removing charge...");
+    const selectedRow: Charge = this.gridApi.getSelectedRows()[0];
+    var selected = this.gridApi.getFocusedCell();
+    console.log(selected);
+
+    this.deleteCharge(selectedRow.id).subscribe(
+      (_) => {
+        this.rowData.splice(selected.rowIndex, 1);
+        this.gridApi.setRowData(this.rowData);
+        this.toastr.success("Charge removed!");
+      },
+      (error) => {
+        this.toastr.error("Something went wrong");
+      }
+    );
   }
 
   createCharge(charge: Charge): Observable<Charge> {
@@ -195,5 +218,9 @@ export class RateandchargeComponent implements OnInit {
 
   updateCharge(newCharge: Charge): Observable<any> {
     return this.chargeService.updateCharge(newCharge);
+  }
+
+  deleteCharge(id: number): Observable<any> {
+    return this.chargeService.removeCharge(id);
   }
 }
