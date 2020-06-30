@@ -4,6 +4,7 @@ import { CommonModule } from "@angular/common";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { Routes, RouterModule } from "@angular/router";
 import { BodyComponent } from "./body/body.component";
+import { FormsModule } from "@angular/forms";
 
 const homeRoutes: Routes = [
   { path: "", component: BodyComponent, pathMatch: "full" },
@@ -11,6 +12,11 @@ const homeRoutes: Routes = [
 
 @NgModule({
   declarations: [BodyComponent],
-  imports: [CommonModule, RouterModule.forChild(homeRoutes), NgbModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule.forChild(homeRoutes),
+    NgbModule,
+  ],
 })
 export class HomeModule {}

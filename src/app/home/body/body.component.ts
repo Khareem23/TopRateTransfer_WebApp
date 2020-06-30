@@ -1,5 +1,8 @@
 import { Component, OnInit, isDevMode } from "@angular/core";
 import { loaders } from "../../shared/loaders";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { RateService } from "src/app/features/admin/_services/rate.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-body",
@@ -9,7 +12,12 @@ import { loaders } from "../../shared/loaders";
 export class BodyComponent implements OnInit {
   loadAPI: Promise<any>;
 
-  constructor() {
+  cashInAud: number = 0;
+  cashInNai: number = 0;
+
+  currentRate = 0;
+
+  constructor(private rateService: RateService, private toastr: ToastrService) {
     if (isDevMode()) {
       this.loadAPI = new Promise((resolve) => {
         loaders.loadScript("../../../assets/js/home.js");
@@ -31,5 +39,15 @@ export class BodyComponent implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.rateService.getRate().subscribe((rate) => {
+      this.currentRate = parseFloat(rate.amount);
+    });
+  }
+
+  calculateEquivalentPrice() {
+    if (this.currentRate == 0) this.toastr.info("Service not available");
+
+    this.cashInNai = this.currentRate * this.cashInAud;
+  }
 }

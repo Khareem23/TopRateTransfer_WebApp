@@ -27,12 +27,12 @@ export const ROUTES: RouteInfo[] = [
     icon: "ni-money-coins text-orange",
     class: "",
   },
-  {
-    path: "/user-profile",
-    title: "Our Payment Details",
-    icon: "ni-credit-card text-yellow",
-    class: "",
-  },
+  // {
+  //   path: "/user-profile",
+  //   title: "Our Payment Details",
+  //   icon: "ni-credit-card text-yellow",
+  //   class: "",
+  // },
 ];
 
 @Component({

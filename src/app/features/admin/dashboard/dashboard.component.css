@@ -1,0 +1,13 @@
+.card-header {
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+  padding: 1.25rem 1.5rem !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+  background-color: #fff !important;
+
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  margin-top: 0px !important;
+  border: 0 !important;
+  background: none !important;
+}

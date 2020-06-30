@@ -2,3 +2,23 @@
   cursor: pointer;
   color: white;
 }
+
+.admin-logo {
+  margin: 20px;
+  width: 60% !important;
+}
+
+/* Smartphones in landscape mode (480-768px) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .admin-logo {
+    width: 20% !important;
+  }
+}
+
+/* Tablets in portrait mode (768-980px) */
+@media only screen and (min-width: 768px) and (max-width: 980px) {
+  /* your css goes here */
+  .admin-logo {
+    width: 20% !important;
+  }
+}

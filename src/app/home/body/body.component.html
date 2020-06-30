@@ -98,7 +98,7 @@
     <div class="row mt-4">
       <div class="col-md-7 text-center">
         <h2 class="title text-white">About TopRate Transfer</h2>
-        <h5 class="description text-white">
+        <h5 class="description text-white text-justify">
           This is the paragraph where you can write more details about your
           product. Keep you user engaged by providing meaningful information.
           Remember that by this time, the user is curious, otherwise he
@@ -128,7 +128,12 @@
                       <i class="material-icons">euro_symbol</i>
                     </span>
                   </div>
-                  <input type="text" class="form-control" value="100" />
+                  <input
+                    type="text"
+                    class="form-control input-rate"
+                    (keyup)="calculateEquivalentPrice()"
+                    [(ngModel)]="cashInAud"
+                  />
                 </div>
               </div>
               <div class="col-md-1"></div>
@@ -138,10 +143,7 @@
                   data-style="btn btn-link"
                   id="exampleFormControlSelect2"
                 >
-                  <option>EUR</option>
-                  <option>NIG</option>
-                  <option>NIG</option>
-                  <option>NIG</option>
+                  <option>AUD</option>
                 </select>
               </div>
             </div>
@@ -163,7 +165,11 @@
                       <i class="material-icons">euro_symbol</i>
                     </span>
                   </div>
-                  <input type="text" class="form-control" value="100" />
+                  <input
+                    type="text"
+                    class="form-control input-rate"
+                    [(ngModel)]="cashInNai"
+                  />
                 </div>
               </div>
               <div class="col-md-1"></div>
@@ -173,9 +179,6 @@
                   data-style="btn btn-link"
                   id="exampleFormControlSelect2"
                 >
-                  <option>EUR</option>
-                  <option>NIG</option>
-                  <option>NIG</option>
                   <option>NIG</option>
                 </select>
               </div>

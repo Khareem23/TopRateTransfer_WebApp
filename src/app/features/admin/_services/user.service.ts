@@ -23,6 +23,14 @@ export class UserService {
     return this.http.get<User>(`${this.baseUrl}/${id}`);
   }
 
+  getTotalRegisteredUsers(): Observable<number> {
+    return this.http.get<number>(`${this.baseUrl}/getTotalRegisteredUsers`);
+  }
+
+  getTotalUsersMonthly(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/getTotalUsersMonthly`);
+  }
+
   updateUser(payload: UserForUpdate): Observable<User> {
     return this.http.put<User>(`${this.baseUrl}/update/${payload.id}`, payload);
   }
