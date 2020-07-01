@@ -6,7 +6,7 @@
       </div>
       <!-- Card stats -->
       <div class="row">
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-4 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
               <div class="row">
@@ -15,7 +15,7 @@
                     Total Registered Users
                   </h5>
                   <span
-                    *ngIf="totalRegisteredUser != 0; else loader"
+                    *ngIf="totalRegisteredUser != null; else loader"
                     class="h2 font-weight-bold mb-0"
                     >{{ totalRegisteredUser.toLocaleString() }}</span
                   >
@@ -39,7 +39,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-4 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
               <div class="row">
@@ -48,7 +48,7 @@
                     Total Transaction Counts
                   </h5>
                   <span
-                    *ngIf="totalTransactionCount != 0; else loader"
+                    *ngIf="totalTransactionCount != null; else loader"
                     class="h2 font-weight-bold mb-0"
                     >{{ totalTransactionCount.toLocaleString() }}</span
                   >
@@ -72,7 +72,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-3 col-lg-6">
+        <div class="col-xl-4 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
             <div class="card-body">
               <div class="row">
@@ -81,7 +81,7 @@
                     Total Amount Processed
                   </h5>
                   <span
-                    *ngIf="totalAmountProcessed != 0; else loader"
+                    *ngIf="totalAmountProcessed != null; else loader"
                     class="h2 font-weight-bold mb-0"
                     >{{ totalAmountProcessed.toLocaleString() }}</span
                   >
@@ -99,41 +99,6 @@
                     class="icon icon-shape bg-default text-white rounded-circle shadow"
                   >
                     <i class="ni ni-credit-card"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-lg-6">
-          <div class="card card-stats mb-4 mb-xl-0">
-            <div class="card-body">
-              <div class="row">
-                <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">
-                    Current Month Total Amount
-                  </h5>
-                  <span
-                    *ngIf="totalAmountProcessedForTheMonth != 0; else loader"
-                    class="h2 font-weight-bold mb-0"
-                    >{{
-                      totalAmountProcessedForTheMonth.toLocaleString()
-                    }}</span
-                  >
-                  <ng-template #loader>
-                    <span>
-                      <img
-                        style="width: 12%;"
-                        src="./assets/img/transparent-spinner.gif"
-                      />
-                    </span>
-                  </ng-template>
-                </div>
-                <div class="col-auto">
-                  <div
-                    class="icon icon-shape bg-default text-white rounded-circle shadow"
-                  >
-                    <i class="ni ni-money-coins"></i>
                   </div>
                 </div>
               </div>
@@ -174,3 +139,41 @@
     </div>
   </div>
 </div>
+<div class="container-fluid mt--7">
+  <div class="row">
+    <div class="col-xl-12 col-lg-6">
+      <div class="card card-stats mb-4 mb-xl-0">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title text-uppercase text-muted mb-0">
+                Current Month Total Amount
+              </h5>
+              <span
+                *ngIf="totalAmountProcessedForTheMonth != null; else loader"
+                class="h2 font-weight-bold mb-0"
+                >{{ totalAmountProcessedForTheMonth.toLocaleString() }}</span
+              >
+              <ng-template #loader>
+                <span>
+                  <img
+                    style="width: 12%;"
+                    src="./assets/img/transparent-spinner.gif"
+                  />
+                </span>
+              </ng-template>
+            </div>
+            <div class="col-auto">
+              <div
+                class="icon icon-shape bg-default text-white rounded-circle shadow"
+              >
+                <i class="ni ni-money-coins"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-rate></app-rate>

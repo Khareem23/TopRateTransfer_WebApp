@@ -32,17 +32,11 @@ export class RateandchargeComponent implements OnInit {
   isLoadingCharge: boolean = false;
   isSubmittingChargeForm: boolean = false;
 
-  rate: Rate;
-  isLoadingRate: boolean = false;
-  isSubmittingRateForm: boolean = false;
-  rateForm: FormGroup;
-
   overlayLoadingTemplate;
   overlayNoRowsTemplate;
 
   constructor(
     public chargeService: ChargeService,
-    public rateService: RateService,
     private toastr: ToastrService
   ) {
     // this.columnDefs.editable = false;
@@ -90,13 +84,7 @@ export class RateandchargeComponent implements OnInit {
       '<span class="ag-overlay-loading-center">Please wait while fetching users</span>';
   }
 
-  ngOnInit() {
-    this.isLoadingRate = true;
-    this.rateService.getRate().subscribe((rate) => {
-      this.rate = rate;
-      this.isLoadingRate = false;
-    });
-  }
+  ngOnInit() {}
 
   onGridReady(params) {
     this.gridApi = params.api;
@@ -160,30 +148,6 @@ export class RateandchargeComponent implements OnInit {
         // this.clearForm(formDirective, this.chargeService);
         this.gridApi.applyTransaction({ add: [charge] });
       });
-    }
-  }
-
-  onSubmitToUpdateRate(formDirective: FormGroupDirective) {
-    if (this.rateService.rateForm.valid) {
-      this.toastr.info("Updating Rate...");
-      this.isSubmittingRateForm = true;
-      const ratePayload: Rate = {
-        id: this.rate.id,
-        currencyDesc: this.rateService.rateForm.get("desc").value,
-        amount: this.rateService.rateForm.get("amount").value,
-      };
-
-      this.rateService.updateRate(ratePayload).subscribe(
-        (newRate) => {
-          this.clearForm(formDirective, this.rateService);
-          this.isSubmittingRateForm = false;
-          this.rate = ratePayload;
-          this.toastr.success("Rate Updated!");
-        },
-        (error) => {
-          this.toastr.error("Something went wrong");
-        }
-      );
     }
   }
 

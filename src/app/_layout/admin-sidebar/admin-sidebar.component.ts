@@ -22,17 +22,17 @@ export const ROUTES: RouteInfo[] = [
     class: "",
   },
   {
+    path: "/admin/transaction",
+    title: "Transactions",
+    icon: "ni-single-copy-04 text-default",
+    class: "",
+  },
+  {
     path: "/admin/rateandcharge",
     title: "Rates & Charges",
     icon: "ni-money-coins text-orange",
     class: "",
   },
-  // {
-  //   path: "/user-profile",
-  //   title: "Our Payment Details",
-  //   icon: "ni-credit-card text-yellow",
-  //   class: "",
-  // },
 ];
 
 @Component({

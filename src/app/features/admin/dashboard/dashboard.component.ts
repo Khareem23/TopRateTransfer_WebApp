@@ -4,7 +4,7 @@ import { Rate } from "../_models/Rate";
 import { RateService } from "../_services/rate.service";
 import { FormGroup, FormGroupDirective } from "@angular/forms";
 import { UserService } from "../_services/user.service";
-import { MiscService } from "../_services/misc.service";
+import { TransactionService } from "../_services/transaction.service";
 import { ToastrService } from "ngx-toastr";
 
 @Component({
@@ -39,16 +39,16 @@ export class DashboardComponent implements OnInit {
 
   loadAPI: Promise<any>;
 
-  totalRegisteredUser = 0;
-  totalTransactionCount = 0;
-  totalAmountProcessed = 0;
-  totalAmountProcessedForTheMonth = 0;
+  totalRegisteredUser = null;
+  totalTransactionCount = null;
+  totalAmountProcessed = null;
+  totalAmountProcessedForTheMonth = null;
 
   userMonthly = [];
 
   constructor(
     private userService: UserService,
-    private miscService: MiscService,
+    private transactionService: TransactionService,
     private toastr: ToastrService
   ) {
     if (isDevMode()) {
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    this.miscService.getTotalTransactionCount().subscribe(
+    this.transactionService.getTotalTransactionCount().subscribe(
       (data) => {
         this.totalTransactionCount = data;
       },
@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    this.miscService.getTotalAmountProcessed().subscribe(
+    this.transactionService.getTotalAmountProcessed().subscribe(
       (data) => {
         this.totalAmountProcessed = data;
       },
@@ -102,7 +102,7 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    this.miscService.getTotalTransactionForCurrentMonth().subscribe(
+    this.transactionService.getTotalTransactionForCurrentMonth().subscribe(
       (data) => {
         this.totalAmountProcessedForTheMonth = data;
       },

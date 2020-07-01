@@ -13,6 +13,8 @@ import { AuthguardService as AuthGuard } from "src/app/global/services/authguard
 import { ReactiveFormsModule } from "@angular/forms";
 import { RateandchargeComponent } from "./rateandcharge/rateandcharge.component";
 import { ToastrService } from "ngx-toastr";
+import { TransactionComponent } from "./transaction/transaction.component";
+import { RateComponent } from './_shared/rate/rate.component';
 
 const adminRoutes: Routes = [
   {
@@ -28,6 +30,12 @@ const adminRoutes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "admin/transaction",
+    component: TransactionComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard],
+  },
+  {
     path: "admin/rateandcharge",
     component: RateandchargeComponent,
     pathMatch: "full",
@@ -36,7 +44,13 @@ const adminRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [DashboardComponent, UserComponent, RateandchargeComponent],
+  declarations: [
+    DashboardComponent,
+    UserComponent,
+    RateandchargeComponent,
+    TransactionComponent,
+    RateComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(adminRoutes),
