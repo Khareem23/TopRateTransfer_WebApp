@@ -139,20 +139,22 @@
     </div>
   </div>
 </div>
-<div class="container-fluid mt--7">
+<div class="container-fluid mt--7 total_card">
   <div class="row">
     <div class="col-xl-12 col-lg-6">
-      <div class="card card-stats mb-4 mb-xl-0">
+      <div class="card shadow mb-4 mb-xl-0">
         <div class="card-body">
           <div class="row">
-            <div class="col">
+            <div class="col total_card_content">
               <h5 class="card-title text-uppercase text-muted mb-0">
                 Current Month Total Amount
               </h5>
               <span
                 *ngIf="totalAmountProcessedForTheMonth != null; else loader"
-                class="h2 font-weight-bold mb-0"
-                >{{ totalAmountProcessedForTheMonth.toLocaleString() }}</span
+                class="font-weight-bold"
+                style="font-size: 50px;"
+                >AUD
+                {{ totalAmountProcessedForTheMonth.toLocaleString() }}</span
               >
               <ng-template #loader>
                 <span>
@@ -162,13 +164,6 @@
                   />
                 </span>
               </ng-template>
-            </div>
-            <div class="col-auto">
-              <div
-                class="icon icon-shape bg-default text-white rounded-circle shadow"
-              >
-                <i class="ni ni-money-coins"></i>
-              </div>
             </div>
           </div>
         </div>

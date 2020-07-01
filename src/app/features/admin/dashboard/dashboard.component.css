@@ -11,3 +11,13 @@
   border: 0 !important;
   background: none !important;
 }
+
+.total_card .card-title {
+  font-size: 15px;
+  padding-top: 20px;
+}
+
+.total_card_content {
+  display: flex;
+  justify-content: space-around;
+}
