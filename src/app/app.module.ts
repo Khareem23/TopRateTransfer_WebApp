@@ -22,6 +22,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { HttpClientModule } from "@angular/common/http";
 import { AuthLayoutComponent } from "./_layout/auth-layout/auth-layout.component";
 import { SpinnerComponent } from "./shared/spinner/spinner.component";
+import { FooterBannerCardComponent } from './shared/footer-banner-card/footer-banner-card.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SpinnerComponent } from "./shared/spinner/spinner.component";
     AdminLayoutComponent,
     AuthLayoutComponent,
     SpinnerComponent,
+    FooterBannerCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,15 @@
+.footer {
+  background: #5b074e !important;
+  padding: 0 !important;
+}
+
+.list-group-item {
+  border: none !important;
+  background: none !important;
+  padding: 0.6rem;
+}
+
+.list-group-item > a {
+  margin: 0 auto;
+  color: white !important;
+}
