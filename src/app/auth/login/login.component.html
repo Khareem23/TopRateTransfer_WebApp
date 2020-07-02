@@ -1,65 +1,20 @@
-<div class="login__header header bg-gradient-brand">
-  <div class="container">
-    <div class="header-body text-center mb-7">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-6">
-          <!-- <h1 class="text-white">Admin Authentication</h1> -->
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- Page content -->
-<div class="container mt--8 pb-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-5 col-md-7">
-      <div class="card bg-secondary shadow border-0">
-        <!-- <div class="card-header bg-transparent pb-5"> -->
-        <!-- <div class="text-muted text-center mt-2 mb-3"> -->
-        <!-- <small>TopRate Transfer Admin</small> -->
-        <!-- </div> -->
-        <!-- <div class="btn-wrapper text-center">
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"
-                ><img src="../../../../assets/img/icons/common/github.svg"
-              /></span>
-              <span class="btn-inner--text">Github</span>
-            </a>
-            <a href="javascript:void(0)" class="btn btn-neutral btn-icon">
-              <span class="btn-inner--icon"
-                ><img src="../../../../assets/img/icons/common/google.svg"
-              /></span>
-              <span class="btn-inner--text">Google</span>
-            </a>
-          </div> -->
-        <!-- </div> -->
+<div
+  class="container-fluid login mt-4"
+  style="margin-top: 150px !important; margin-bottom: 30px !important;"
+>
+  <div class="row">
+    <div class="col-md-6">
+      <div
+        class="card auth-card shadow border-0"
+        style="width: 60%; margin: 0 auto;"
+      >
         <div class="card-body px-lg-5 py-lg-5">
-          <a
-            class="navbar-brand mb-4 text-center"
-            routerLinkActive="active"
-            [routerLink]="['/']"
-          >
-            <img
-              *ngIf="inDevMode; else elseBlock"
-              src="../../../assets/img/tplogobrand.png"
-              class="navbar-brand-img"
-              alt="logo"
-              style="width: 60%;"
-            />
-            <ng-template #elseBlock>
-              <img
-                src="./assets/img/tplogobrand.png"
-                class="navbar-brand-img"
-                alt="logo"
-                style="width: 60%;"
-              />
-            </ng-template>
-          </a>
-          <div class="text-muted text-center mt-2 mb-3">
+          <div class="text-muted text-center" style="margin-bottom: 40px;">
             <h4>Admin Login</h4>
           </div>
           <form role="form" [formGroup]="signInForm">
-            <div class="form-group mb-3">
+            <div class="form-group mb-4">
               <div class="input-group input-group-alternative">
                 <div class="input-group-prepend">
                   <span class="input-group-text"
@@ -120,6 +75,9 @@
           >
         </div>
       </div>
+    </div>
+    <div class="col-md-6" style="padding-left: 80px;">
+      <img src="./assets/img/auth_side_img1.png" style="width: 70%;" />
     </div>
   </div>
 </div>

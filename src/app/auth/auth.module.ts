@@ -7,13 +7,19 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { authReducer } from "./state/reducers";
 import { AuthEffect } from "./state/effects";
+import { RegistrationComponent } from "./registration/registration.component";
 
 const authRoutes: Routes = [
   { path: "auth/login", component: LoginComponent, pathMatch: "full" },
+  {
+    path: "auth/register",
+    component: RegistrationComponent,
+    pathMatch: "full",
+  },
 ];
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegistrationComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(authRoutes),

@@ -1,0 +1,78 @@
+<!-- Page content
+<div class="container-fluid login mt-4" style="margin-top: 120px !important;">
+    <div class="row">
+      <div class="col-md-6" style="padding-left: 100px; padding-right: 70px;">
+        <div class="card auth-card shadow border-0">
+          <div class="card-body px-lg-5 py-lg-5">
+            <div class="text-muted text-center" style="margin-bottom: 40px;">
+              <h4>Admin Login</h4>
+            </div>
+            <form role="form" [formGroup]="signInForm">
+              <div class="form-group mb-4">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="ni ni-email-83"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control"
+                    formControlName="email"
+                    placeholder="Email"
+                    type="email"
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="input-group input-group-alternative">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"
+                      ><i class="ni ni-lock-circle-open"></i
+                    ></span>
+                  </div>
+                  <input
+                    class="form-control"
+                    placeholder="Password"
+                    type="password"
+                    formControlName="password"
+                  />
+                </div>
+              </div>
+              <div
+                class="custom-control custom-control-alternative custom-checkbox"
+              >
+                <input
+                  class="custom-control-input"
+                  id=" customCheckLogin"
+                  type="checkbox"
+                />
+                <label class="custom-control-label" for=" customCheckLogin">
+                  <span class="text-muted">Remember me</span>
+                </label>
+              </div>
+              <div class="text-center">
+                <button
+                  [disabled]="isAuthenticating || !signInForm.valid"
+                  (click)="authenticateUser()"
+                  class="btn btn-primary my-4"
+                >
+                  {{ isAuthenticating ? "Authenticating" : "Sign In" }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-6">
+            <a href="javascript:void(0)"
+              ><small class="text-white">Forgot password?</small></a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" style="padding-left: 80px;">
+        <img src="./assets/img/auth_side_img1.png" style="width: 70%;" />
+      </div>
+    </div>
+  </div>
+   -->

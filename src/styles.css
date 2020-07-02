@@ -9,6 +9,10 @@
   color: #5b074e;
 }
 
+.bg-auth {
+  background: white !important;
+}
+
 .btn-brand-white:hover {
   background-color: white;
   color: #4d0041;

@@ -12,6 +12,11 @@
   background: none !important;
 }
 
+.total_card .card {
+  background: #5b074e;
+  color: white;
+}
+
 .total_card .card-title {
   font-size: 15px;
   padding-top: 20px;

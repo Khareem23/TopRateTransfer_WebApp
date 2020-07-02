@@ -23,6 +23,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { AuthLayoutComponent } from "./_layout/auth-layout/auth-layout.component";
 import { SpinnerComponent } from "./shared/spinner/spinner.component";
 import { FooterBannerCardComponent } from './shared/footer-banner-card/footer-banner-card.component';
+import { AuthHeaderComponent } from './_layout/auth-header/auth-header.component';
+import { AuthFooterComponent } from './_layout/auth-footer/auth-footer.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { FooterBannerCardComponent } from './shared/footer-banner-card/footer-ba
     AuthLayoutComponent,
     SpinnerComponent,
     FooterBannerCardComponent,
+    AuthHeaderComponent,
+    AuthFooterComponent,
   ],
   imports: [
     BrowserModule,

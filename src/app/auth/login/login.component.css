@@ -1,8 +1,11 @@
-.login__header {
-  /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.274), rgba(0, 0, 0, 0.37)),
+/* .login__header {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.274), rgba(0, 0, 0, 0.37)),
     url("../../../assets/img/3.jpg") !important;
-  background-repeat: no-repeat !important; */
-  padding-bottom: 4rem !important;
-  padding-top: 4rem !important;
-  /* background-size: cover !important; */
+  background-repeat: no-repeat !important;
+  padding-bottom: 6rem !important;
+  padding-top: 6rem !important;
+  background-size: cover !important;
+} */
+.form-control {
+  padding-left: 10px !important;
 }

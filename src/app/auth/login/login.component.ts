@@ -35,29 +35,11 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private store: Store<fromAuth.AppState>
-  ) {
-    this.loadAPI = new Promise((resolve) => {
-      loaders.loadStyle("../../../../assets/vendor/argon/argon.css");
-      resolve(true);
-    });
-    if (isDevMode()) {
-      this.inDevMode = true;
-    } else {
-      this.loadAPI = new Promise((resolve) => {
-        loaders.loadStyle("./assets/vendor/argon/argon.css");
-        resolve(true);
-      });
-    }
-  }
+  ) {}
 
   ngOnInit() {
-    var html = document.getElementsByTagName("html")[0];
-    html.classList.add("auth-layout");
     var body = document.getElementsByTagName("body")[0];
-    body.classList.add("bg-default");
-    this.router.events.subscribe((event) => {
-      this.isCollapsed = true;
-    });
+    body.classList.add("bg-auth");
 
     this.signInForm = this.formBuilder.group({
       email: new FormControl("", [Validators.required, Validators.email]),
