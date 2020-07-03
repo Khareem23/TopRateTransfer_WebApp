@@ -5000,6 +5000,10 @@ input[type="button"].btn-block {
   color: rgba(255, 255, 255, 0.65);
 }
 
+.wizard_form .card {
+  padding: 50px;
+}
+
 .card {
   position: relative;
   display: flex;
@@ -5010,6 +5014,7 @@ input[type="button"].btn-block {
   border-radius: 0.375rem;
   background-color: #fff;
   background-clip: border-box;
+  box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15) !important;
 }
 
 .card-header:first-child {

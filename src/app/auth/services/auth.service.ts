@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { map, tap, delay } from "rxjs/operators";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable } from "rxjs";
+import { UserToRegister } from "../models/UserToRegister";
 
 @Injectable({
   providedIn: "root",
@@ -17,6 +18,12 @@ export class AuthService {
   loggedInUser;
 
   constructor(private http: HttpClient) {}
+
+  registerUser(referralId: string, payload: UserToRegister): Observable<any> {
+    const url = `${this.baseUrl}/register/referralCode/${referralId}`;
+    console.log(url);
+    return this.http.post(url, payload);
+  }
 
   authenticate(payload: ILogin): Observable<any> {
     const url = `${this.baseUrl}/login`;

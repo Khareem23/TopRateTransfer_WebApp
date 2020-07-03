@@ -9,6 +9,8 @@ import { authReducer } from "./state/reducers";
 import { AuthEffect } from "./state/effects";
 import { RegistrationComponent } from "./registration/registration.component";
 
+import { FormWizardModule } from "angular2-wizard";
+
 const authRoutes: Routes = [
   { path: "auth/login", component: LoginComponent, pathMatch: "full" },
   {
@@ -27,6 +29,7 @@ const authRoutes: Routes = [
     ReactiveFormsModule,
     StoreModule.forFeature("auth", authReducer),
     EffectsModule.forFeature([AuthEffect]),
+    FormWizardModule,
   ],
 })
 export class AuthModule {}

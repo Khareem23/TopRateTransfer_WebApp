@@ -1,78 +1,271 @@
-<!-- Page content
-<div class="container-fluid login mt-4" style="margin-top: 120px !important;">
-    <div class="row">
-      <div class="col-md-6" style="padding-left: 100px; padding-right: 70px;">
-        <div class="card auth-card shadow border-0">
-          <div class="card-body px-lg-5 py-lg-5">
-            <div class="text-muted text-center" style="margin-bottom: 40px;">
-              <h4>Admin Login</h4>
+<div class="container login mt-4" style="margin-top: 100px !important;">
+  <div class="row">
+    <div class="col-md-12 wizard_form">
+      <form-wizard>
+        <wizard-step
+          [title]="'User Information'"
+          (onNext)="onStep1Next($event)"
+        >
+          <form [formGroup]="signUpForm1">
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-firstname"
+                      >First Name</label
+                    ><input
+                      formControlName="firstName"
+                      class="form-control form-control-alternative"
+                      id="input-firstname"
+                      placeholder="John"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-lastname"
+                      >Last Name</label
+                    ><input
+                      formControlName="lastName"
+                      class="form-control form-control-alternative"
+                      id="input-lastname"
+                      placeholder="Amstrong"
+                      type="text"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-date"
+                      >Date of Birth</label
+                    ><input
+                      formControlName="dateofbirth"
+                      class="form-control form-control-alternative"
+                      id="input-date"
+                      placeholder=""
+                      type="date"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-gender"
+                      >Gender</label
+                    >
+                    <select
+                      formControlName="gender"
+                      class="form-control form-control-alternative"
+                      id="input-gender"
+                    >
+                      <option>Male</option>
+                      <option>Female</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-password"
+                      >Password</label
+                    ><input
+                      formControlName="password"
+                      class="form-control form-control-alternative"
+                      id="input-password"
+                      type="password"
+                    />
+                    <div class="text-muted font-italic">
+                      <small
+                        >password strength:
+                        <span class="text-success font-weight-700"
+                          >strong</span
+                        ></small
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <form role="form" [formGroup]="signInForm">
-              <div class="form-group mb-4">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="ni ni-email-83"></i
-                    ></span>
+          </form>
+        </wizard-step>
+        <wizard-step
+          [isValid]="signUpForm1.valid"
+          [title]="'Contact Information'"
+          (onNext)="onStep2Next($event)"
+        >
+          <form [formGroup]="signUpForm2">
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-email"
+                      >Email</label
+                    ><input
+                      formControlName="email"
+                      class="form-control form-control-alternative"
+                      id="input-email"
+                      placeholder="johnamstrong@gmail.com"
+                      type="email"
+                    />
                   </div>
-                  <input
-                    class="form-control"
-                    formControlName="email"
-                    placeholder="Email"
-                    type="email"
-                  />
                 </div>
               </div>
-              <div class="form-group">
-                <div class="input-group input-group-alternative">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                      ><i class="ni ni-lock-circle-open"></i
-                    ></span>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-phone"
+                      >Phone Number</label
+                    ><input
+                      formControlName="phone"
+                      class="form-control form-control-alternative"
+                      id="input-phone"
+                      placeholder="+234818999735"
+                      type="text"
+                    />
                   </div>
-                  <input
-                    class="form-control"
-                    placeholder="Password"
-                    type="password"
-                    formControlName="password"
-                  />
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-code"
+                      >Postal Code</label
+                    ><input
+                      formControlName="postalcode"
+                      class="form-control form-control-alternative"
+                      id="input-code"
+                      placeholder="122112"
+                      type="number"
+                    />
+                  </div>
                 </div>
               </div>
-              <div
-                class="custom-control custom-control-alternative custom-checkbox"
-              >
-                <input
-                  class="custom-control-input"
-                  id=" customCheckLogin"
-                  type="checkbox"
-                />
-                <label class="custom-control-label" for=" customCheckLogin">
-                  <span class="text-muted">Remember me</span>
-                </label>
+            </div>
+          </form>
+        </wizard-step>
+        <wizard-step
+          [isValid]="signUpForm2.valid"
+          [title]="'Address Information'"
+          (onNext)="onStep3Next($event)"
+        >
+          <form [formGroup]="signUpForm3">
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address"
+                      >Address</label
+                    ><input
+                      formControlName="address"
+                      class="form-control form-control-alternative"
+                      id="input-address"
+                      placeholder="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                      type="text"
+                    />
+                  </div>
+                </div>
               </div>
-              <div class="text-center">
-                <button
-                  [disabled]="isAuthenticating || !signInForm.valid"
-                  (click)="authenticateUser()"
-                  class="btn btn-primary my-4"
-                >
-                  {{ isAuthenticating ? "Authenticating" : "Sign In" }}
-                </button>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-city"
+                      >City</label
+                    ><input
+                      formControlName="city"
+                      class="form-control form-control-alternative"
+                      id="input-city"
+                      placeholder="Las Vegas"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-state"
+                      >State</label
+                    ><input
+                      formControlName="state"
+                      class="form-control form-control-alternative"
+                      id="input-state"
+                      placeholder="Las Vegas"
+                      type="text"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-country"
+                      >Country</label
+                    ><input
+                      formControlName="country"
+                      class="form-control form-control-alternative"
+                      id="input-country"
+                      placeholder="United Stae"
+                      type="text"
+                    />
+                  </div>
+                </div>
               </div>
-            </form>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="custom-control custom-checkbox mb-3">
+                    <input
+                      class="custom-control-input"
+                      id="customCheck1"
+                      type="checkbox"
+                      formControlName="iagree"
+                    />
+                    <label
+                      class="custom-control-label"
+                      for="customCheck1"
+                      style="padding-top: 5px;"
+                      >I agree with all terms & conditions</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </wizard-step>
+        <wizard-step
+          [isValid]="signUpForm3.valid && canMoveToFinalStage"
+          [title]="'Authentication'"
+          (onComplete)="onComplete($event)"
+        >
+          <div [ngSwitch]="isCompleted">
+            <div *ngSwitchDefault>
+              <div class="pl-lg-4">
+                <div class="row">
+                  <div class="col-md-12" style="padding: 50px 50px;">
+                    <h4>
+                      Proceed by clicking <i>Done</i> if you've correctly filled
+                      the form.
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="true">
+              <div class="pl-lg-4">
+                <div class="row">
+                  <div class="col-md-12" style="padding: 50px 50px;">
+                    <h4 *ngIf="isFormSubmitted; else loading">
+                      Thanks for Joining us, You have been registered
+                      successfully!
+                    </h4>
+                    <ng-template #loading>
+                      <img
+                        style="width: 10%;"
+                        src="./assets/img/transparent-spinner.gif"
+                      />
+                      <span>Submitting Form...</span>
+                    </ng-template>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row mt-3">
-          <div class="col-6">
-            <a href="javascript:void(0)"
-              ><small class="text-white">Forgot password?</small></a
-            >
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6" style="padding-left: 80px;">
-        <img src="./assets/img/auth_side_img1.png" style="width: 70%;" />
-      </div>
+        </wizard-step>
+      </form-wizard>
     </div>
   </div>
-   -->
+</div>

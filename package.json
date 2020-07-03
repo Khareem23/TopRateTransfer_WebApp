@@ -28,6 +28,7 @@
     "@ngrx/store-devtools": "^7.4.0",
     "ag-grid-angular": "^23.2.0",
     "ag-grid-community": "^23.2.0",
+    "angular2-wizard": "^0.4.0",
     "bootstrap": "^4.0.0",
     "chart.js": "^2.9.3",
     "jquery-backstretch": "^2.1.18",
