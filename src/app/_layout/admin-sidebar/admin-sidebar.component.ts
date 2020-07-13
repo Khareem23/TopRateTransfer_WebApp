@@ -18,19 +18,25 @@ export const ROUTES: RouteInfo[] = [
   {
     path: "/admin/user",
     title: "Users & Verification",
-    icon: "ni-single-02 text-blue",
+    icon: "ni-single-02 text-primary",
     class: "",
   },
   {
     path: "/admin/transaction",
     title: "Transactions",
-    icon: "ni-single-copy-04 text-default",
+    icon: "ni-single-copy-04 text-primary",
+    class: "",
+  },
+  {
+    path: "/admin/austrac",
+    title: "Austrac",
+    icon: "ni-single-copy-04 text-primary",
     class: "",
   },
   {
     path: "/admin/rateandcharge",
     title: "Rates & Charges",
-    icon: "ni-money-coins text-orange",
+    icon: "ni-money-coins text-primary",
     class: "",
   },
 ];

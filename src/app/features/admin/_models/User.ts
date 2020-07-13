@@ -6,6 +6,7 @@ export interface User {
   lastName: string;
   age: number;
   createdDate: Date;
+  dateOfBirth: Date;
   gender: string;
   profilePhotoUrl: string;
   idCardPhotoUrl: string;
@@ -15,10 +16,15 @@ export interface User {
   postalCode: string;
   state: string;
   country: string;
-  facialQuestionId: number;
+  facialQuestion: any;
   isActivated: true;
   isFacialVerification: true;
   isIdVerification: true;
   inviteUrl: string;
   inviterId: number;
+  idCardIssuer: string;
+  idCardNumber: string;
+  idType: string;
+  discount: any;
+  inviterNameID: any;
 }

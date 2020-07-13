@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 
-import { HttpClient } from "@angular/common/http";
 import { UserService } from "../_services/user.service";
 
 import { User } from "../_models/User";
@@ -65,6 +64,15 @@ export class UserComponent implements OnInit {
         headerName: "Email",
         field: "email",
         editable: true,
+      },
+      {
+        headerName: "Date of Birth",
+        type: "dateColumn",
+        width: 170,
+        cellRenderer: (data) => {
+          console.log(data);
+          return moment(data.dateOfBirth).format("MM-DD-YYYY");
+        },
       },
       {
         headerName: "Verifications",
@@ -200,6 +208,7 @@ export class UserComponent implements OnInit {
       const newVal = `${params.newValue}`;
       updatedUser[`${changedField}`] = newVal == "true";
     }
+    updatedUser = this.buildUserForUpdateModel(updatedUser);
 
     this.updateUser(updatedUser).subscribe(
       (_) => {
@@ -209,6 +218,32 @@ export class UserComponent implements OnInit {
         this.toastr.error("Something went wrong");
       }
     );
+  }
+
+  buildUserForUpdateModel(updatedUser: UserForUpdate): UserForUpdate {
+    let userForUpdate: UserForUpdate = {
+      id: updatedUser.id,
+      phoneNumber: updatedUser.phoneNumber,
+      email: updatedUser.email,
+      firstName: updatedUser.firstName,
+      lastName: updatedUser.lastName,
+      address: updatedUser.address,
+      city: updatedUser.city,
+      state: updatedUser.state,
+      country: updatedUser.country,
+      isActivated: updatedUser.isActivated,
+      isFacialVerification: updatedUser.isFacialVerification,
+      isIdVerification: updatedUser.isIdVerification,
+      dateOfBirth: updatedUser.dateOfBirth,
+      gender: updatedUser.gender,
+      postalCode: updatedUser.postalCode,
+      idType: updatedUser.idType,
+      idCardNumber: updatedUser.idCardNumber,
+      idCardIssuer: updatedUser.idCardIssuer,
+      role: updatedUser.role,
+    };
+
+    return userForUpdate;
   }
 
   updateUser(updatedUser: UserForUpdate): Observable<any> {

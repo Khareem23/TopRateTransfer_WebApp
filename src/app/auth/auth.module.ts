@@ -8,8 +8,8 @@ import { EffectsModule } from "@ngrx/effects";
 import { authReducer } from "./state/reducers";
 import { AuthEffect } from "./state/effects";
 import { RegistrationComponent } from "./registration/registration.component";
-
-import { FormWizardModule } from "angular2-wizard";
+import { WizardStepComponent } from "./wizard/wizard-step.component";
+import { WizardComponent } from "./wizard/wizard.component";
 
 const authRoutes: Routes = [
   { path: "auth/login", component: LoginComponent, pathMatch: "full" },
@@ -21,7 +21,12 @@ const authRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [LoginComponent, RegistrationComponent],
+  declarations: [
+    LoginComponent,
+    RegistrationComponent,
+    WizardStepComponent,
+    WizardComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(authRoutes),
@@ -29,7 +34,6 @@ const authRoutes: Routes = [
     ReactiveFormsModule,
     StoreModule.forFeature("auth", authReducer),
     EffectsModule.forFeature([AuthEffect]),
-    FormWizardModule,
   ],
 })
 export class AuthModule {}

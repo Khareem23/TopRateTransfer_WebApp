@@ -31,7 +31,10 @@ export class UserService {
     return this.http.get<any[]>(`${this.baseUrl}/getTotalUsersMonthly`);
   }
 
-  updateUser(payload: UserForUpdate): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/update/${payload.id}`, payload);
+  updateUser(payload: UserForUpdate): Observable<any> {
+    return this.http.put<any>(
+      `${this.baseUrl}/updateByAdmin/${payload.id}`,
+      payload
+    );
   }
 }

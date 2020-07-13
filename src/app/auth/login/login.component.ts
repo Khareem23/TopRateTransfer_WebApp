@@ -12,6 +12,8 @@ import * as authActions from "../state/actions";
 import * as fromAuth from "../state/reducers";
 import { Store } from "@ngrx/store";
 import Swal from "sweetalert2";
+import { AuthService } from "../services/auth.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-login",
@@ -34,7 +36,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private store: Store<fromAuth.AppState>
+    private authService: AuthService,
+    private toastr: ToastrService // private store: Store<fromAuth.AppState>
   ) {}
 
   ngOnInit() {
@@ -56,20 +59,39 @@ export class LoginComponent implements OnInit {
     this.performLogin(this.userPayload);
   }
 
-  performLogin(userPayload: ILogin) {
-    this.isAuthenticating = true;
-    console.log(this.isAuthenticating);
-    this.store.dispatch(new authActions.Login(userPayload));
+  // performLogin(userPayload: ILogin) {
+  //   this.isAuthenticating = true;
+  //   console.log(this.isAuthenticating);
+  //   this.store.dispatch(new authActions.Login(userPayload));
 
-    this.store.subscribe((state) => {
-      this.authState = state.auth;
-      if (this.authState.isAuthenticated) {
+  //   this.store.subscribe((state) => {
+  //     this.authState = state.auth;
+  //     if (this.authState.isAuthenticated) {
+  //       this.router.navigate(["/admin/dashboard"]);
+  //     }
+  //     if (!this.authState.isAuthenticating) {
+  //       this.isAuthenticating = false;
+  //     }
+  //   });
+  // }
+
+  performLogin(userPayload: ILogin) {
+    if (this.signInForm.invalid && !this.signInForm.dirty) {
+      this.toastr.error("Kindly enter credential");
+      return false;
+    }
+    this.isAuthenticating = true;
+    this.authService.authenticate(userPayload).subscribe(
+      (_) => {
         this.router.navigate(["/admin/dashboard"]);
-      }
-      if (!this.authState.isAuthenticating) {
+      },
+      (error) => {
+        if (error == "401") {
+          this.toastr.error("Incorrect credentials");
+        }
         this.isAuthenticating = false;
       }
-    });
+    );
   }
 
   ngOnDestroy() {

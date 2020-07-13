@@ -27,6 +27,14 @@ const routes: Routes = [
     loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
   },
 
+  // Pages routh goes here
+  {
+    path: "",
+    component: AuthLayoutComponent,
+    loadChildren: () =>
+      import("./features/pages/pages.module").then((m) => m.PagesModule),
+  },
+
   // otherwise redirect home
   { path: "**", redirectTo: "" },
 ];

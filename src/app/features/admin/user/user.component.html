@@ -7,7 +7,7 @@
     </div>
   </div>
 </div>
-<div class="container-fluid mt--7">
+<div class="container-fluid mt--7 mb-4">
   <div class="row">
     <div class="tbl-action">
       <button
@@ -39,6 +39,8 @@
         [overlayLoadingTemplate]="overlayLoadingTemplate"
         [overlayNoRowsTemplate]="overlayNoRowsTemplate"
         (gridReady)="onGridReady($event)"
+        [paginationAutoPageSize]="true"
+        [pagination]="true"
       ></ag-grid-angular>
     </div>
   </div>
@@ -91,6 +93,12 @@
             <hr class="my-4" />
             <pre>
               Date Joined: {{userJoinedDate}}
+
+              Facial Question Value: {{userModel?.facialQuestion || "Not filled"}}
+
+              ID Card File : <a href="{{userModel?.idCardPhotoUrl}}" target="_blank">Click Here</a>
+
+              Facial Gesture Photo File : <a href="{{userModel?.facialGesturePhotoUrl}}" target="_blank">Click Here</a>
 
               ID Verification Status: <span class="badge badge-pill" [ngClass]="{'badge-success': userModel?.isIdVerification, 'badge-danger': !userModel?.isIdVerification}">{{userModel?.isIdVerification ? 'Verified' : 'Not Verified'}}</span>
               

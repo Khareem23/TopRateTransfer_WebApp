@@ -10,11 +10,12 @@ import { Routes, RouterModule } from "@angular/router";
 import { UserComponent } from "./user/user.component";
 import { AgGridModule } from "ag-grid-angular";
 import { AuthguardService as AuthGuard } from "src/app/global/services/authguard.service";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { RateandchargeComponent } from "./rateandcharge/rateandcharge.component";
 import { ToastrService } from "ngx-toastr";
 import { TransactionComponent } from "./transaction/transaction.component";
-import { RateComponent } from './_shared/rate/rate.component';
+import { RateComponent } from "./_shared/rate/rate.component";
+import { AustracComponent } from "./austrac/austrac.component";
 
 const adminRoutes: Routes = [
   {
@@ -36,6 +37,12 @@ const adminRoutes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "admin/austrac",
+    component: AustracComponent,
+    pathMatch: "full",
+    canActivate: [AuthGuard],
+  },
+  {
     path: "admin/rateandcharge",
     component: RateandchargeComponent,
     pathMatch: "full",
@@ -50,6 +57,7 @@ const adminRoutes: Routes = [
     RateandchargeComponent,
     TransactionComponent,
     RateComponent,
+    AustracComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +65,7 @@ const adminRoutes: Routes = [
     NgbModule,
     ChartsModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     AgGridModule.withComponents(),
   ],

@@ -4,6 +4,8 @@ import { ToastrService } from "ngx-toastr";
 import { Transaction } from "../_models/Transaction";
 import { TransactionForUpdate } from "../_models/TransactionForUpdate";
 import * as moment from "moment";
+import { ReportService } from "../_services/report.service";
+import { saveAs } from "file-saver";
 
 @Component({
   selector: "app-transaction",
@@ -27,8 +29,11 @@ export class TransactionComponent implements OnInit {
 
   transactionDetailModel: Transaction;
 
+  reportQueryDate: string;
+
   constructor(
     private transactionService: TransactionService,
+    private reportService: ReportService,
     private toastr: ToastrService
   ) {
     this.columnDefs = [
@@ -207,5 +212,24 @@ export class TransactionComponent implements OnInit {
   viewSelectedRow() {
     this.transactionDetailModel = this.gridApi.getSelectedRows()[0];
     console.log(this.transactionDetailModel);
+  }
+
+  pullReport() {
+    this.toastr.info("Generating Report..");
+    return this.reportService
+      .getMonthlyTransactionReport(this.reportQueryDate)
+      .subscribe(
+        (response) => {
+          this.downloadFile(response, "application/excel");
+          this.toastr.success("Report Downloaded!");
+        },
+        (error) => {
+          this.toastr.error("Something went wrong");
+        }
+      );
+  }
+  downloadFile(response: any, type: string) {
+    let blob = new Blob([response], { type });
+    saveAs(blob, "Transaction_Report.xlsx");
   }
 }

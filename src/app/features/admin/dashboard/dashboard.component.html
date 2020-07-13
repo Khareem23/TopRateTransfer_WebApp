@@ -153,8 +153,7 @@
                 *ngIf="totalAmountProcessedForTheMonth != null; else loader"
                 class="font-weight-bold"
                 style="font-size: 50px;"
-                >AUD
-                {{ totalAmountProcessedForTheMonth.toLocaleString() }}</span
+                >AUD {{ totalAmountProcessedForTheMonth }}.00</span
               >
               <ng-template #loader>
                 <span>

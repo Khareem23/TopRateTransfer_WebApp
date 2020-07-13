@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="header-body">
       <div class="">
-        <h1 class="display-3 text-white">Transaction Management</h1>
+        <h1 class="display-3 text-white">Austrac Record</h1>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
         <i class="material-icons">
           description
         </i>
-        Generate Monthly Report
+        Generate AUSTRAC Report
       </button>
     </div>
     <div class="col-xl-12 mb-5 mb-xl-0">
@@ -47,7 +47,6 @@
         [rowSelection]="rowSelection"
         suppressRowClickSelection
         [rowData]="rowData"
-        (cellValueChanged)="onCellValueChanged($event)"
         [overlayLoadingTemplate]="overlayLoadingTemplate"
         [overlayNoRowsTemplate]="overlayNoRowsTemplate"
         [paginationAutoPageSize]="true"
@@ -73,7 +72,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 class="modal-title" id="staticBackdropLabel">
-          Overall Transaction Details
+          Overall AUSTRAC Details
         </h2>
         <button
           type="button"
@@ -86,52 +85,46 @@
       </div>
       <div class="modal-body">
         <hr />
-        <h3>Transaction Details</h3>
-        <p>id: {{ transactionDetailModel?.id }}</p>
-        <p>Reference Number: {{ transactionDetailModel?.referenceNumber }}</p>
-        <p>
-          Payment Reference Number:
-          {{ transactionDetailModel?.paymentReferenceNumber }}
-        </p>
-        <p>Amount To Receive: {{ transactionDetailModel?.amountToReceive }}</p>
-        <p>Currency Received: {{ transactionDetailModel?.currencyReceived }}</p>
-        <p>
-          Total Amount Charged: {{ transactionDetailModel?.totalAmountCharged }}
-        </p>
-        <p>Pay-In Method: {{ transactionDetailModel?.payInMethod }}</p>
-        <p>Amount Sent: {{ transactionDetailModel?.amountSent }}</p>
-        <p>Currency Sent: {{ transactionDetailModel?.currencySent }}</p>
-        <p>Date Sent: {{ transactionDetailModel?.dateSent }}</p>
-        <p>Date Processed: {{ transactionDetailModel?.dateProcessed }}</p>
-        <hr />
-        <h3>User Details</h3>
-        <p>User Id: {{ transactionDetailModel?.userId }}</p>
-        <p>Full Name: {{ transactionDetailModel?.fullName }}</p>
-        <p>Email: {{ transactionDetailModel?.senderEmail }}</p>
-        <hr />
-        <h3>Reciever Details</h3>
-        <p>Receiver Id: {{ transactionDetailModel?.receiverId }}</p>
-        <p>Receiver Email: {{ transactionDetailModel?.receiverEmail }}</p>
-        <p>
-          Receiver Account-Name:
-          {{ transactionDetailModel?.receiversAccountName }}
-        </p>
-        <p>
-          Receiver Bank Code: {{ transactionDetailModel?.receiversBankCode }}
-        </p>
-        <p>
-          Receiver Account-Number:
-          {{ transactionDetailModel?.receiversAccountNumber }}
-        </p>
-        <hr />
+        <h3>Transaction</h3>
+        <p>id: {{ austracDetailModel?.id }}</p>
 
-        <h3>Transaction Status</h3>
-        <p>Status: {{ transactionDetailModel?.status }}</p>
-        <p>Hold Status: {{ transactionDetailModel?.isHold }}</p>
-        <p>Paid-Out Status: {{ transactionDetailModel?.isPaidOut }}</p>
+        <p>Reference Number: {{ austracDetailModel?.transactionRefNo }}</p>
+        <p>Type of Transaction: {{ austracDetailModel?.typeOfTransaction }}</p>
+        <p>Amount: {{ austracDetailModel?.transactionAmount }}</p>
         <p>
-          Status Description: {{ transactionDetailModel?.statusDescription }}
+          Reason for Transaction:
+          {{ austracDetailModel?.reasonForTransaction || "..." }}
         </p>
+        <p>Sender FullName: {{ austracDetailModel?.senderFullName }}</p>
+        <p>Receiver FullName: {{ austracDetailModel?.receiverFullName }}</p>
+        <p>Officer FullName: {{ austracDetailModel?.officerFullName }}</p>
+        <p>Currency Code: {{ austracDetailModel?.currencyCode }}</p>
+        <p>Date Sent: {{ austracDetailModel?.dateMoneyReceived }}</p>
+        <hr />
+        <h3>Organisation</h3>
+        <p>
+          Is Organisation accepting money ?
+          {{ austracDetailModel?.isOrganisationAcceptingMoney }}
+        </p>
+        <p>
+          Is Organisation sending transfer instruction ?
+          {{ austracDetailModel?.isOrganisationSendingTransferInstruction }}
+        </p>
+        <p>
+          Is Organisation distributing money ?
+          {{ austracDetailModel?.isOrganisationDistributingMoney }}
+        </p>
+        <p></p>
+        <p>
+          Seperate retail outlet location ?
+          {{ austracDetailModel?.isSeperateRetailOutletLocation }}
+        </p>
+        <hr />
+        <h3>Reporter</h3>
+        <p>Name: {{ austracDetailModel?.reportWriterName }}</p>
+        <p>Job Title: {{ austracDetailModel?.reportWriterJobTitle }}</p>
+        <p>Phone Number: {{ austracDetailModel?.reportWriterPhoneNumber }}</p>
+        <p>Email: {{ austracDetailModel?.reportWriterEmail }}</p>
         <hr />
       </div>
       <div class="modal-footer">
@@ -170,7 +163,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <label for="dateQuery">Enter Report Date</label>
+        <label for="dateQuery">From Date</label>
         <div class="form-group">
           <div class="input-group input-group-alternative">
             <div class="input-group-prepend">
@@ -183,7 +176,28 @@
             <input
               id="dateQuery"
               class="form-control"
-              [(ngModel)]="reportQueryDate"
+              [(ngModel)]="fromReportQueryDate"
+              placeholder="DD-MM-YYYY"
+              type="text"
+              #querydate="ngModel"
+              pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{4})$"
+            />
+          </div>
+        </div>
+        <label for="dateQuery">To Date</label>
+        <div class="form-group">
+          <div class="input-group input-group-alternative">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                ><i class="material-icons">
+                  event
+                </i></span
+              >
+            </div>
+            <input
+              id="dateQuery"
+              class="form-control"
+              [(ngModel)]="toReportQueryDate"
               placeholder="DD-MM-YYYY"
               type="text"
               #querydate="ngModel"

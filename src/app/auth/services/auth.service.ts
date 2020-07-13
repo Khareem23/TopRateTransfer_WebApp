@@ -2,7 +2,6 @@ import { environment } from "./../../../environments/environment";
 import { ILogin } from "../models/ILogin";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { map, tap, delay } from "rxjs/operators";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { Observable } from "rxjs";
 import { UserToRegister } from "../models/UserToRegister";

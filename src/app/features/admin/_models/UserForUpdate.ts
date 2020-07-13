@@ -1,8 +1,6 @@
 export interface UserForUpdate {
   id: number;
-  inviterId: number;
   phoneNumber: string;
-
   email: string;
   firstName: string;
   lastName: string;
@@ -13,11 +11,11 @@ export interface UserForUpdate {
   isActivated: true;
   isFacialVerification: true;
   isIdVerification: true;
-
   dateOfBirth: Date;
   gender: string;
-
   postalCode: string;
-
-  activationCode: string;
+  idType: string;
+  idCardNumber: number;
+  idCardIssuer: string;
+  role: string;
 }

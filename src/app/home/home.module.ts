@@ -6,9 +6,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { BodyComponent } from "./body/body.component";
 import { FormsModule } from "@angular/forms";
 
-const homeRoutes: Routes = [
-  { path: "", component: BodyComponent, pathMatch: "full" },
-];
+const homeRoutes: Routes = [{ path: "", component: BodyComponent }];
 
 @NgModule({
   declarations: [BodyComponent],

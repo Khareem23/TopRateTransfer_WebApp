@@ -58,11 +58,15 @@
             </div>
             <div class="text-center">
               <button
-                [disabled]="isAuthenticating || !signInForm.valid"
+                [disabled]="isAuthenticating || signInForm.invalid"
                 (click)="authenticateUser()"
                 class="btn btn-primary my-4"
               >
-                {{ isAuthenticating ? "Authenticating" : "Sign In" }}
+                {{
+                  isAuthenticating && signInForm.valid
+                    ? "Authenticating"
+                    : "Sign In"
+                }}
               </button>
             </div>
           </form>

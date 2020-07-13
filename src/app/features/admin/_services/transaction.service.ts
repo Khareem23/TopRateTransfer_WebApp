@@ -4,6 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Transaction } from "../_models/Transaction";
 import { TransactionForUpdate } from "../_models/TransactionForUpdate";
+import { Austrac } from "../_models/Austrac";
 
 @Injectable({
   providedIn: "root",
@@ -31,6 +32,10 @@ export class TransactionService {
     return this.http.get<number>(
       `${this.baseUrl}/getTotalTransactionAmountForCurrentMonth`
     );
+  }
+
+  getAustracTransactions(): Observable<Austrac> {
+    return this.http.get<Austrac>(`${this.baseUrl}/getAustracTransactions`);
   }
 
   updateTransaction(

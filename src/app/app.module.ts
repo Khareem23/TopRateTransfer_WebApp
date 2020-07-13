@@ -19,12 +19,13 @@ import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthLayoutComponent } from "./_layout/auth-layout/auth-layout.component";
 import { SpinnerComponent } from "./shared/spinner/spinner.component";
-import { FooterBannerCardComponent } from './shared/footer-banner-card/footer-banner-card.component';
-import { AuthHeaderComponent } from './_layout/auth-header/auth-header.component';
-import { AuthFooterComponent } from './_layout/auth-footer/auth-footer.component';
+import { FooterBannerCardComponent } from "./shared/footer-banner-card/footer-banner-card.component";
+import { AuthHeaderComponent } from "./_layout/auth-header/auth-header.component";
+import { AuthFooterComponent } from "./_layout/auth-footer/auth-footer.component";
+import { HttpErrorInterceptor } from "./global/interceptors/http-error.interceptor";
 
 @NgModule({
   declarations: [
@@ -52,6 +53,13 @@ import { AuthFooterComponent } from './_layout/auth-footer/auth-footer.component
     NgbModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
