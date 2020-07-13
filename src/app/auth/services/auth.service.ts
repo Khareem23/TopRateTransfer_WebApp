@@ -39,6 +39,11 @@ export class AuthService {
     return this.http.get<boolean>(url);
   }
 
+  doesReferralCodeExist(code: string): Observable<boolean> {
+    const url = `${this.baseUrl}/checkReferralCodeValidity/${code}`;
+    return this.http.get<boolean>(url);
+  }
+
   decodeToken(token: string) {
     return this.jwtHelper.decodeToken(token);
   }

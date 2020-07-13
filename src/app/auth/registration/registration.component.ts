@@ -29,6 +29,8 @@ export class RegistrationComponent implements OnInit {
   isVerifyingEmail = false;
   isVerifyingPhone = false;
 
+  isReferralCodeValid = false;
+
   isFormSubmitted = false;
   isCompleted = false;
   canMoveToFinalStage = false;
@@ -63,6 +65,21 @@ export class RegistrationComponent implements OnInit {
     });
 
     this.referralId = this.route.snapshot.queryParamMap.get("referralCode");
+
+    this.verifyReferralCode();
+  }
+
+  verifyReferralCode() {
+    return this.authService
+      .doesReferralCodeExist(this.referralId)
+      .subscribe((res) => {
+        if (!res) {
+          this.isReferralCodeValid = false;
+          this.toastr.error("Referral code is invalid!");
+        } else {
+          this.isReferralCodeValid = true;
+        }
+      });
   }
 
   verifyEmail() {
@@ -115,6 +132,10 @@ export class RegistrationComponent implements OnInit {
     if (this.signUpForm2.invalid) {
       this.toastr.error("Contact Information form was not filled correctly");
     }
+    if (!this.isReferralCodeValid) {
+      this.toastr.error("Referral code is invalid!");
+    }
+    // this.verifyReferralCode();
   }
   onStep3Next(params) {
     if (
@@ -125,6 +146,7 @@ export class RegistrationComponent implements OnInit {
     } else {
       this.canMoveToFinalStage = true;
     }
+    // this.verifyReferralCode();
   }
   onComplete(params) {
     const isFormUserValid = this.signUpForm1.valid;

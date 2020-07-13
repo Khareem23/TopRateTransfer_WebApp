@@ -95,7 +95,8 @@
             isEmailValid &&
             isPhoneValid &&
             !isVerifyingEmail &&
-            !isVerifyingPhone
+            !isVerifyingPhone &&
+            isReferralCodeValid
           "
           [title]="'Contact Information'"
           (onNext)="onStep2Next($event)"
@@ -173,7 +174,7 @@
           </form>
         </wizard-step>
         <wizard-step
-          [isValid]="signUpForm2.valid"
+          [isValid]="signUpForm2.valid && isReferralCodeValid"
           [title]="'Address Information'"
           (onNext)="onStep3Next($event)"
         >
@@ -257,7 +258,9 @@
           </form>
         </wizard-step>
         <wizard-step
-          [isValid]="signUpForm3.valid && canMoveToFinalStage"
+          [isValid]="
+            signUpForm3.valid && canMoveToFinalStage && isReferralCodeValid
+          "
           [title]="'Authentication'"
           (onComplete)="onComplete($event)"
         >
