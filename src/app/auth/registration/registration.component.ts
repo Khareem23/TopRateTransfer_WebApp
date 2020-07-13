@@ -23,6 +23,12 @@ export class RegistrationComponent implements OnInit {
   signUpForm3: FormGroup;
   signUpForm4: FormGroup;
 
+  isEmailValid = true;
+  isPhoneValid = true;
+
+  isVerifyingEmail = false;
+  isVerifyingPhone = false;
+
   isFormSubmitted = false;
   isCompleted = false;
   canMoveToFinalStage = false;
@@ -59,12 +65,53 @@ export class RegistrationComponent implements OnInit {
     this.referralId = this.route.snapshot.queryParamMap.get("referralCode");
   }
 
+  verifyEmail() {
+    this.isVerifyingEmail = true;
+    const email = this.signUpForm2.get("email").value;
+    this.doesEmailExist(email).subscribe((res) => {
+      if (res) {
+        this.isEmailValid = false;
+      } else {
+        this.isEmailValid = true;
+      }
+      this.isVerifyingEmail = false;
+    });
+  }
+
+  verifyPhone() {
+    this.isVerifyingPhone = true;
+    const phone = this.signUpForm2.get("phone").value;
+    this.doesPhoneExist(phone).subscribe((res) => {
+      if (res) {
+        this.isPhoneValid = false;
+      } else {
+        this.isPhoneValid = true;
+      }
+      this.isVerifyingPhone = false;
+    });
+  }
+
+  doesEmailExist(email: string) {
+    return this.authService.doesEmailExist(email);
+  }
+
+  doesPhoneExist(phone: string) {
+    return this.authService.doesPhoneNumberExist(phone);
+  }
+
   onStep1Next(params) {
     if (this.signUpForm1.invalid) {
       this.toastr.error("User Information form was not filled correctly");
     }
   }
   onStep2Next(params) {
+    if (!this.isEmailValid) {
+    }
+    if (!this.isPhoneValid) {
+      this.signUpForm1.setErrors({
+        phoneNotUnique: true,
+      });
+    }
     if (this.signUpForm2.invalid) {
       this.toastr.error("Contact Information form was not filled correctly");
     }

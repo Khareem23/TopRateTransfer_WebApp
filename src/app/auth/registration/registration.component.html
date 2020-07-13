@@ -90,7 +90,13 @@
           </form>
         </wizard-step>
         <wizard-step
-          [isValid]="signUpForm1.valid"
+          [isValid]="
+            signUpForm1.valid &&
+            isEmailValid &&
+            isPhoneValid &&
+            !isVerifyingEmail &&
+            !isVerifyingPhone
+          "
           [title]="'Contact Information'"
           (onNext)="onStep2Next($event)"
         >
@@ -102,12 +108,24 @@
                     <label class="form-control-label" for="input-email"
                       >Email</label
                     ><input
+                      (blur)="verifyEmail()"
                       formControlName="email"
                       class="form-control form-control-alternative"
                       id="input-email"
                       placeholder="johnamstrong@gmail.com"
                       type="email"
                     />
+                    <img
+                      *ngIf="isVerifyingEmail"
+                      style="width: 3%;"
+                      src="./assets/img/transparent-spinner.gif"
+                    />
+                    <div
+                      class="invalid-feedback"
+                      [ngClass]="{ feedback: !isEmailValid }"
+                    >
+                      Email already in use!
+                    </div>
                   </div>
                 </div>
               </div>
@@ -117,12 +135,24 @@
                     <label class="form-control-label" for="input-phone"
                       >Phone Number</label
                     ><input
+                      (keyup)="verifyPhone()"
                       formControlName="phone"
                       class="form-control form-control-alternative"
                       id="input-phone"
                       placeholder="+234818999735"
                       type="text"
                     />
+                    <img
+                      *ngIf="isVerifyingPhone"
+                      style="width: 6%;"
+                      src="./assets/img/transparent-spinner.gif"
+                    />
+                    <div
+                      class="invalid-feedback"
+                      [ngClass]="{ feedback: !isPhoneValid }"
+                    >
+                      Phone number already exist!
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">

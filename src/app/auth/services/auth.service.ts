@@ -29,6 +29,16 @@ export class AuthService {
     return this.http.post(url, payload);
   }
 
+  doesEmailExist(email: string): Observable<boolean> {
+    const url = `${this.baseUrl}/checkEmailExist/${email}`;
+    return this.http.get<boolean>(url);
+  }
+
+  doesPhoneNumberExist(phone: string): Observable<boolean> {
+    const url = `${this.baseUrl}/checkPhoneNumberExist/${phone}`;
+    return this.http.get<boolean>(url);
+  }
+
   decodeToken(token: string) {
     return this.jwtHelper.decodeToken(token);
   }
