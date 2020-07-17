@@ -1,3 +1,7 @@
 .input-rate {
   font-size: 20px;
 }
+
+.input-display:read-only {
+  background-color: white !important;
+}

@@ -133,21 +133,19 @@
                   </div>
                   <input
                     type="text"
-                    class="form-control input-rate"
-                    (keyup)="calculateEquivalentPrice()"
-                    [(ngModel)]="cashInAud"
+                    class="form-control input-display"
+                    value="1"
+                    readonly
                   />
                 </div>
               </div>
               <div class="col-md-1"></div>
               <div class="col-md-5">
-                <select
-                  class="form-control selectpicker"
-                  data-style="btn btn-link"
-                  id="exampleFormControlSelect2"
-                >
-                  <option>AUD</option>
-                </select>
+                <input
+                  class="form-control input-display"
+                  value="AUD"
+                  readonly
+                />
               </div>
             </div>
             <div class="row">
@@ -170,20 +168,19 @@
                   </div>
                   <input
                     type="text"
-                    class="form-control input-rate"
+                    class="form-control input-display"
+                    readonly
                     [(ngModel)]="cashInNai"
                   />
                 </div>
               </div>
               <div class="col-md-1"></div>
               <div class="col-md-5">
-                <select
-                  class="form-control selectpicker"
-                  data-style="btn btn-link"
-                  id="exampleFormControlSelect2"
-                >
-                  <option>NIG</option>
-                </select>
+                <input
+                  class="form-control input-display"
+                  value="NGA"
+                  readonly
+                />
               </div>
             </div>
             <div class="row mt-4">

@@ -12,7 +12,6 @@ import { ToastrService } from "ngx-toastr";
 export class BodyComponent implements OnInit {
   loadAPI: Promise<any>;
 
-  cashInAud: number = 0;
   cashInNai: number = 0;
 
   currentRate = 0;
@@ -42,12 +41,14 @@ export class BodyComponent implements OnInit {
   ngOnInit() {
     this.rateService.getRate().subscribe((rate) => {
       this.currentRate = parseFloat(rate.amount);
+      this.calculateEquivalentPrice();
     });
   }
 
   calculateEquivalentPrice() {
-    if (this.currentRate == 0) this.toastr.info("Service not available");
+    if (this.currentRate == 0)
+      this.toastr.info("Rate service currently not available");
 
-    this.cashInNai = this.currentRate * this.cashInAud;
+    this.cashInNai = this.currentRate * 1;
   }
 }
