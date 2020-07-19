@@ -14,6 +14,7 @@ export class RateComponent implements OnInit {
   isLoadingRate: boolean = false;
   isSubmittingRateForm: boolean = false;
   rateForm: FormGroup;
+  rateDesc;
 
   constructor(public rateService: RateService, private toastr: ToastrService) {}
 
@@ -21,6 +22,7 @@ export class RateComponent implements OnInit {
     this.isLoadingRate = true;
     this.rateService.getRate().subscribe((rate) => {
       this.rate = rate;
+      this.rateDesc = rate.currencyDesc;
       this.isLoadingRate = false;
     });
   }
@@ -37,7 +39,7 @@ export class RateComponent implements OnInit {
 
       this.rateService.updateRate(ratePayload).subscribe(
         (newRate) => {
-          this.clearForm(formDirective, this.rateService);
+          //this.clearForm(formDirective, this.rateService);
           this.isSubmittingRateForm = false;
           this.rate = ratePayload;
           this.toastr.success("Rate Updated!");

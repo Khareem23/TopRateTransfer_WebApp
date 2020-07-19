@@ -26,6 +26,7 @@ import { FooterBannerCardComponent } from "./shared/footer-banner-card/footer-ba
 import { AuthHeaderComponent } from "./_layout/auth-header/auth-header.component";
 import { AuthFooterComponent } from "./_layout/auth-footer/auth-footer.component";
 import { HttpErrorInterceptor } from "./global/interceptors/http-error.interceptor";
+import { TokenInterceptor } from "./global/interceptors/token.interceptor";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,11 @@ import { HttpErrorInterceptor } from "./global/interceptors/http-error.intercept
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
       multi: true,
     },
   ],

@@ -42,7 +42,9 @@
                       <input
                         type="text"
                         formControlName="desc"
-                        placeholder="{{ rate?.currencyDesc }}"
+                        value="{{ rate?.currencyDesc }}"
+                        readonly
+                        [(ngModel)]="rateDesc"
                         class="form-control"
                       />
                     </div>

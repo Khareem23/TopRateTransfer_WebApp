@@ -2,6 +2,14 @@
 @import "../node_modules/ag-grid-community/dist/styles/ag-grid.css";
 @import "../node_modules/ag-grid-community/dist/styles/ag-theme-alpine.css";
 
+html,
+body {
+  overflow-x: hidden !important;
+}
+body {
+  position: relative !important;
+}
+
 /*Brand Styling*/
 
 .btn-brand-white {
@@ -960,6 +968,67 @@
   transform: translate3D(0px, 0px, 0px) !important;
   -webkit-transform: translate3D(0px, 0px, 0px) !important;
   opacity: 1 !important;
+}
+
+/* Media Query */
+/* Large screens (1405px upwards) */
+@media only screen and (min-width: 1405px) {
+  /* your css goes here */
+}
+
+/* Laptops and desktops (1100-1405px) */
+@media only screen and (min-width: 1100px) and (max-width: 1405px) {
+  /* your css goes here */
+}
+
+/* Tablets in landscape mode (981-1100px) */
+@media only screen and (min-width: 981px) and (max-width: 1100px) {
+  /* your css goes here */
+}
+
+/* Tablets in portrait mode (768-980px) */
+@media only screen and (min-width: 768px) and (max-width: 980px) {
+  /* your css goes here */
+}
+
+/* Smartphones in landscape mode (480-768px) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  /* your css goes here */
+  .body-container {
+    margin-top: 20px;
+  }
+  .body-container .title {
+    font-size: 40px;
+  }
+  .img-icon {
+    width: 20%;
+  }
+  .amount-desc {
+    display: none;
+  }
+  .faq-container button {
+    overflow-x: auto;
+  }
+}
+
+/* Smartphones in portrait mode (0-479px) */
+@media only screen and (max-width: 479px) {
+  /* your css goes here */
+  .body-container {
+    margin-top: 20px;
+  }
+  .body-container .title {
+    font-size: 40px;
+  }
+  .img-icon {
+    width: 20%;
+  }
+  .amount-desc {
+    display: none;
+  }
+  .faq-container button {
+    overflow-x: auto;
+  }
 }
 
 /*  animated images  */

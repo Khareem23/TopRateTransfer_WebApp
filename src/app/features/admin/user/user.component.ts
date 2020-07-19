@@ -100,6 +100,24 @@ export class UserComponent implements OnInit {
         field: "gender",
       },
       {
+        headerName: "Invitee",
+        groupId: "inviteeGroup",
+        children: [
+          {
+            headerName: "URL",
+            field: "inviteUrl",
+          },
+          {
+            headerName: "Name ID",
+            field: "inviterNameID",
+          },
+        ],
+      },
+      {
+        headerName: "Gender",
+        field: "gender",
+      },
+      {
         headerName: "Date Joined",
         field: "createdDate",
         type: "dateColumn",
@@ -270,6 +288,7 @@ export class UserComponent implements OnInit {
 
   displayViewForSelectedRow() {
     this.userModel = this.gridApi.getSelectedRows()[0];
+    console.log(this.userModel);
     this.userJoinedDate = moment(this.userModel.createdDate).format(
       "MMMM Do YYYY, h:mm:ss a"
     );

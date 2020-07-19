@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
   totalRegisteredUser = null;
   totalTransactionCount = null;
   totalAmountProcessed = null;
-  totalAmountProcessedForTheMonth = 5000000;
+  totalAmountProcessedForTheMonth = null;
 
   userMonthly = [];
 
@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit {
 
     this.transactionService.getTotalTransactionForCurrentMonth().subscribe(
       (data) => {
-        // this.totalAmountProcessedForTheMonth = data;
+        this.totalAmountProcessedForTheMonth = data;
       },
       (error) => {
         this.toastr.error("Cannot fetch total amount processed.");
