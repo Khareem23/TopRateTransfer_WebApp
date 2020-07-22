@@ -10,7 +10,6 @@ import { ToastrService } from "ngx-toastr";
 import { UserToRegister } from "../models/UserToRegister";
 import { Observable } from "rxjs";
 import { AuthService } from "../services/auth.service";
-import { error } from "console";
 
 @Component({
   selector: "app-registration",
