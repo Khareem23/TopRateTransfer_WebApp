@@ -82,7 +82,8 @@ export class LoginComponent implements OnInit {
     }
     this.isAuthenticating = true;
     this.authService.authenticate(userPayload).subscribe(
-      (_) => {
+      (response) => {
+        this.authService.saveToken(response.token);
         this.router.navigate(["/admin/dashboard"]);
       },
       (error) => {

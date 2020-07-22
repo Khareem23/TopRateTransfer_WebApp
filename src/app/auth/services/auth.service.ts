@@ -74,6 +74,13 @@ export class AuthService {
     }
   }
 
+  saveToken(token: string) {
+    const tokenInStorage = localStorage.getItem("token") || null;
+    if (tokenInStorage === null) {
+      localStorage.setItem("token", token);
+    }
+  }
+
   destroyToken(): void {
     localStorage.removeItem("token");
   }

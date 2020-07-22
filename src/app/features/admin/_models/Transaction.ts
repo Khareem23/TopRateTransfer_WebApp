@@ -20,6 +20,7 @@ export interface Transaction {
   receiversAccountName: string;
   receiversBankCode: string;
   receiversAccountNumber: string;
+  receiversBankName: string;
 
   status: string;
   isHold: true;
