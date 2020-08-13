@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class FooterBannerCardComponent implements OnInit {
   @Input() imgUrl;
+  @Input() linkUrl;
 
   constructor() {}
 

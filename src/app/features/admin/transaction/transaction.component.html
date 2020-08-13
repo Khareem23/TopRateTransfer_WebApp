@@ -131,6 +131,21 @@
 
         <h3>Transaction Status</h3>
         <p>Status: {{ transactionDetailModel?.status }}</p>
+        <p>
+          Confirmation Image:
+          <a
+            *ngIf="
+              transactionDetailModel?.confirmationPhotoUrl;
+              else reportNull
+            "
+            href="{{ transactionDetailModel?.confirmationPhotoUrl }}"
+            target="_blank"
+            >Click here to view</a
+          >
+          <ng-template #reportNull>
+            None was uploaded
+          </ng-template>
+        </p>
         <p>Hold Status: {{ transactionDetailModel?.isHold }}</p>
         <p>Paid-Out Status: {{ transactionDetailModel?.isPaidOut }}</p>
         <p>
