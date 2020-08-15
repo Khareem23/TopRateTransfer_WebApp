@@ -108,7 +108,7 @@ export class UserComponent implements OnInit {
             field: "inviteUrl",
           },
           {
-            headerName: "Name ID",
+            headerName: "Inviter NameID",
             field: "inviterNameID",
           },
         ],

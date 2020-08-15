@@ -48,7 +48,10 @@ export class TransactionComponent implements OnInit {
       },
       {
         headerName: "Amount Sent",
-        field: "amountSent",
+        cellRenderer: (data) => {
+          var amount = data.data.amountToSend;
+          return amount.toLocaleString();
+        },
       },
       {
         headerName: "Transaction Status",
@@ -94,13 +97,13 @@ export class TransactionComponent implements OnInit {
           {
             headerName: "Date Sent",
             cellRenderer: (data) => {
-              return moment(data.dateSent).format("MM-DD-YYYY HH:mm");
+              return moment(data.data.dateSent).format("MM-DD-YYYY HH:mm");
             },
           },
           {
             headerName: "Date Processed",
             cellRenderer: (data) => {
-              return moment(data.dateProcessed).format("MM-DD-YYYY HH:mm");
+              return moment(data.data.dateProcessed).format("MM-DD-YYYY HH:mm");
             },
           },
         ],
