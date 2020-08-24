@@ -4,6 +4,7 @@ import { TransactionService } from "../_services/transaction.service";
 import { ReportService } from "../_services/report.service";
 import { ToastrService } from "ngx-toastr";
 import { saveAs } from "file-saver";
+import * as moment from "moment";
 
 @Component({
   selector: "app-austrac",
@@ -48,6 +49,14 @@ export class AustracComponent implements OnInit {
           {
             headerName: "Transaction Ref",
             field: "transactionRefNo",
+          },
+          {
+            headerName: "Date Recieved",
+            cellRenderer: (data) => {
+              return moment(data.data.dateMoneyReceived).format(
+                "MM-DD-YYYY HH:mm"
+              );
+            },
           },
           {
             headerName: "Transaction Amount",
@@ -135,7 +144,6 @@ export class AustracComponent implements OnInit {
 
   viewSelectedRow() {
     this.austracDetailModel = this.gridApi.getSelectedRows()[0];
-    console.log(this.austracDetailModel);
   }
 
   pullReport() {

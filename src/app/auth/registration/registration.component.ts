@@ -63,7 +63,7 @@ export class RegistrationComponent implements OnInit {
       iagree: new FormControl(false),
     });
 
-    this.referralId = this.route.snapshot.queryParamMap.get("referralCode");
+    this.referralId = this.route.snapshot.queryParamMap.get("referrerCode");
 
     this.verifyReferralCode();
   }
@@ -97,7 +97,11 @@ export class RegistrationComponent implements OnInit {
   verifyPhone() {
     this.isVerifyingPhone = true;
     const phone = this.signUpForm2.get("phone").value;
-    this.doesPhoneExist(phone).subscribe((res) => {
+    const phoneToSend: string = phone.replace("+", " ").trim();
+    if (phoneToSend.length < 5) {
+      return false;
+    }
+    this.doesPhoneExist(phoneToSend).subscribe((res) => {
       if (res) {
         this.isPhoneValid = false;
       } else {

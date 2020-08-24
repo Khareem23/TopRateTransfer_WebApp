@@ -194,8 +194,6 @@ export class TransactionComponent implements OnInit {
       dateProcessed: updatedTransaction.dateProcessed,
     };
 
-    console.log(transactionForUpdate);
-
     this.transactionService
       .updateTransaction(updatedTransaction.id, transactionForUpdate)
       .subscribe(
@@ -214,7 +212,6 @@ export class TransactionComponent implements OnInit {
 
   viewSelectedRow() {
     this.transactionDetailModel = this.gridApi.getSelectedRows()[0];
-    console.log(this.transactionDetailModel);
   }
 
   pullReport() {

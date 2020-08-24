@@ -71,7 +71,7 @@ export class UserComponent implements OnInit {
         width: 170,
         cellRenderer: (data) => {
           console.log(data);
-          return moment(data.dateOfBirth).format("MM-DD-YYYY");
+          return moment(data.data.dateOfBirth).format("MM-DD-YYYY");
         },
       },
       {
@@ -79,7 +79,7 @@ export class UserComponent implements OnInit {
         groupId: "verificationGroup",
         children: [
           {
-            headerName: "Activation",
+            headerName: "Activation Status",
             field: "isActivated",
             type: "verificationColumn",
           },
@@ -89,7 +89,7 @@ export class UserComponent implements OnInit {
             type: "verificationColumn",
           },
           {
-            headerName: "Verification Status",
+            headerName: "ID Verification",
             field: "isIdVerification",
             type: "verificationColumn",
           },
@@ -114,16 +114,12 @@ export class UserComponent implements OnInit {
         ],
       },
       {
-        headerName: "Gender",
-        field: "gender",
-      },
-      {
         headerName: "Date Joined",
         field: "createdDate",
         type: "dateColumn",
         width: 170,
         cellRenderer: (data) => {
-          return moment(data.createdDate).format("MM-DD-YYYY HH:mm");
+          return moment(data.data.createdDate).format("MM-DD-YYYY HH:mm");
         },
       },
       {
@@ -288,7 +284,6 @@ export class UserComponent implements OnInit {
 
   displayViewForSelectedRow() {
     this.userModel = this.gridApi.getSelectedRows()[0];
-    console.log(this.userModel);
     this.userJoinedDate = moment(this.userModel.createdDate).format(
       "MMMM Do YYYY, h:mm:ss a"
     );
