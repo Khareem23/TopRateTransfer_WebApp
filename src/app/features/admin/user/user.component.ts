@@ -222,6 +222,7 @@ export class UserComponent implements OnInit {
       const newVal = `${params.newValue}`;
       updatedUser[`${changedField}`] = newVal == "true";
     }
+    console.log(updatedUser);
     updatedUser = this.buildUserForUpdateModel(updatedUser);
 
     this.updateUser(updatedUser).subscribe(
