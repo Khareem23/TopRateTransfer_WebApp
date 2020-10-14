@@ -2,43 +2,31 @@ trigger:
   - master
 
 pool:
-  name: Azure Pipelines
+  vmImage: "ubuntu-latest"
 
 steps:
   - task: NodeTool@0
-    displayName: "Use Node 10.x"
     inputs:
-      checkLatest: true
+      versionSpec: "8.x"
+    displayName: "Install Node.js"
 
-  - task: Npm@1
-    displayName: "Angular CLI"
-    inputs:
-      verbose: false
-
-  - task: Npm@1
+  - script: |
+      npm install
     displayName: "npm install"
-    inputs:
-      verbose: false
 
-  - task: Npm@1
-    displayName: "npm run build-prod"
-    inputs:
-      command: custom
-      verbose: false
-      customCommand: "run build-prod"
+  - script: |
+      npm uninstall -g angular-cli
+      npm cache clean or npm cache verify #(if npm > 5)
+      npm install -g @angular/cli@7.1.4
+    displayName: "npm install @angular/cli"
 
-  - task: Npm@1
-    displayName: "Create a deployment build"
+  - script: |
+      npm run build-prod
+    displayName: "npm build"
+  - task: ArchiveFiles@2
     inputs:
-      command: custom
-      verbose: false
-      customCommand: "run build"
-    enabled: false
-
-  - task: AzureRmWebAppDeployment@4
-    displayName: "Azure App Service Deploy: TopRateTransfer-Frontend"
-    inputs:
-      azureSubscription: "TopRate-Azure subscription (d36aa739-a744-43e4-aa4b-170a3e8777c7)"
-      appType: webAppLinux
-      WebAppName: "TopRateTransfer-Frontend"
-      packageForLinux: dist/
+      rootFolderOrFile: "/src/app/dist/topRateTransfer"
+      includeRootFolder: true
+      archiveType: "zip"
+      archiveFile: "$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip"
+      replaceExistingArchive: true
