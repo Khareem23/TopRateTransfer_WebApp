@@ -8,12 +8,12 @@ import { environment } from "src/environments/environment";
 })
 export class AppComponent implements OnInit {
   ngOnInit(): void {
-    if (environment.production) {
-      if (location.protocol === "http:") {
-        console.log("production");
-        window.location.href = location.href.replace("http", "https");
-      }
-    }
+    // if (environment.production) {
+    //   if (location.protocol === "http:") {
+    //     console.log("production");
+    //     window.location.href = location.href.replace("http", "https");
+    //   }
+    // }
   }
   title = "TR-Transfer";
 }
