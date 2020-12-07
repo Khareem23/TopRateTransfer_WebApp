@@ -1,3 +1,4 @@
+
 import { Component, OnInit, isDevMode } from "@angular/core";
 import { Router } from "@angular/router";
 import { loaders } from "src/app/shared/loaders";
@@ -8,12 +9,14 @@ import {
   Validators,
 } from "@angular/forms";
 import { ILogin } from "../models/ILogin";
+import { ITokenData } from "./../models/ITokenData";
 import * as authActions from "../state/actions";
 import * as fromAuth from "../state/reducers";
 import { Store } from "@ngrx/store";
 import Swal from "sweetalert2";
 import { AuthService } from "../services/auth.service";
 import { ToastrService } from "ngx-toastr";
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: "app-login",
@@ -32,6 +35,9 @@ export class LoginComponent implements OnInit {
   authState: any;
 
   isAuthenticating = false;
+
+  jwthelper = new JwtHelperService();
+  decodedToken: ITokenData ;
 
   constructor(
     private router: Router,
@@ -84,10 +90,14 @@ export class LoginComponent implements OnInit {
     this.authService.authenticate(userPayload).subscribe(
       (response) => {
         this.authService.saveToken(response.token);
-        this.router.navigate(["/admin/dashboard"]);
-      },
+        this.decodedToken =  this.jwthelper.decodeToken(response.token);
+        if ( this.decodedToken.role === "Customer"){
+            this.router.navigate(["/member/dashboard"]);
+        } else {
+          this.router.navigate(["/admin/dashboard"]);
+        }},
       (error) => {
-        if (error == "401") {
+        if (error === "401") {
           this.toastr.error("Incorrect credentials");
         }
         this.isAuthenticating = false;

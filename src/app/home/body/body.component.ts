@@ -17,6 +17,7 @@ export class BodyComponent implements OnInit {
   currentRate = 0;
 
   constructor(private rateService: RateService, private toastr: ToastrService) {
+    
     if (isDevMode()) {
       this.loadAPI = new Promise((resolve) => {
         loaders.loadScript("../../../assets/js/home.js");

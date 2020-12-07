@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiHost: "https://api.topratetransfer.com/api",
+  apiHost: "https://api.topratetransfer.com.au/api",
 };
 
 /*
